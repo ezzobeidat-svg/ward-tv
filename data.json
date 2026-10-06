@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T19:21:22.459Z",
+ "updated": "2026-10-06T19:21:42.772Z",
  "items": [
   {
    "type": "settings",
@@ -92,7 +92,13 @@
    "title": "מנוחת צהריים",
    "cat": "rest",
    "rec": "daily",
-   "endTime": "15:00"
+   "endTime": "16:00",
+   "icon": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "ezz",
+   "updated": "2026-10-06T19:21:42.772Z"
   },
   {
    "type": "schedule",
