@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T19:19:17.530Z",
+ "updated": "2026-10-06T19:19:59.305Z",
  "items": [
   {
    "type": "settings",
@@ -28,11 +28,17 @@
   {
    "type": "schedule",
    "id": "a2",
-   "time": "07:30",
+   "time": "08:00",
    "title": "תרופות בוקר",
    "cat": "med",
    "rec": "daily",
-   "endTime": "08:00"
+   "endTime": "08:30",
+   "icon": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "ezz",
+   "updated": "2026-10-06T19:19:59.304Z"
   },
   {
    "type": "schedule",
