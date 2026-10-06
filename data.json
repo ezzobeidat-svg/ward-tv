@@ -1,18 +1,20 @@
 {
- "updated": "2026-10-06T00:00:00Z",
+ "updated": "2026-10-06T19:18:22.134Z",
  "items": [
   {
    "type": "settings",
    "id": "settings",
-   "wardName": "שם המחלקה",
-   "phone": "02-0000000",
-   "secretaryName": "",
-   "headName": "",
+   "wardName": "מחלקה א",
+   "phone": "02-6722250",
+   "secretaryName": "זהבה אברהם",
+   "headName": "סרגיי רסקיו",
    "visitMorning": "10:00-12:00",
-   "visitEvening": "16:00-19:00",
-   "sleepStart": "22:30",
+   "visitEvening": "16:00-18:00",
+   "sleepStart": "21:30",
    "wakeTime": "06:30",
-   "nightMessage": "הגיע הזמן לנוח. הצוות ער ושומר עליכם כל הלילה."
+   "nightMessage": "הגיע הזמן לנוח. הצוות ער ושומר עליכם כל הלילה.",
+   "by": "ezz",
+   "updated": "2026-10-06T19:18:22.132Z"
   },
   {
    "type": "schedule",
