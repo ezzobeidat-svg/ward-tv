@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>הגדרת לוח המחלקה</title>
+<style>
+body{font-family:Heebo,Arial,sans-serif;background:#eef4f8;color:#15314a;margin:0;padding:20px;line-height:1.5}
+.card{max-width:640px;margin:0 auto;background:#fff;border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:12px}
+h1{font-size:22px;color:#1d6a9e;margin:0}
+label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:#5d7387}
+input,textarea{font:inherit;border:1px solid #d6e2ec;border-radius:10px;padding:10px;width:100%;box-sizing:border-box;direction:ltr}
+textarea{min-height:120px;font-family:monospace;font-size:13px}
+button{font:inherit;background:#1d6a9e;color:#fff;border:0;border-radius:10px;padding:11px;font-weight:700;cursor:pointer}
+.note{background:#fff4e0;border-radius:10px;padding:10px 12px;font-size:14px}
+.err{color:#d1495b}.ok{color:#2a9d8f}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>הגדרה חד-פעמית: הצפנת הטוקן</h1>
+  <div class="note">הדף הזה רץ רק בדפדפן שלך ולא שולח את הטוקן לשום מקום חוץ מ-GitHub (לבדיקה). בסוף תקבל טקסט מוצפן להדבקה ב-<b>config.js</b>.</div>
+  <label>שם המשתמש ב-GitHub (OWNER)<input id="owner"></label>
+  <label>שם ה-repo<input id="repo"></label>
+  <label>הטוקן (Fine-grained token שמתחיל ב-github_pat_)<input id="tok" type="password"></label>
+  <label>קוד צוות (מה שהצוות יקליד בכניסה – לפחות 8 תווים)<input id="code" type="password"></label>
+  <label>קוד צוות שוב<input id="code2" type="password"></label>
+  <button id="go">בדיקה והצפנה</button>
+  <div id="msg"></div>
+  <label>להעתיק ולהדביק ב-config.js<textarea id="out" readonly></textarea></label>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+if(location.hostname.endsWith('github.io')){$('owner').value=location.hostname.split('.')[0];$('repo').value=location.pathname.split('/')[1]||'';}
+const b64=u=>{let s='';u.forEach(x=>s+=String.fromCharCode(x));return btoa(s);};
+async function encrypt(token,code){
+  const salt=crypto.getRandomValues(new Uint8Array(16)), iv=crypto.getRandomValues(new Uint8Array(12)), n=310000;
+  const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:n,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt']);
+  const c=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(token)));
+  return {s:b64(salt),i:b64(iv),c:b64(c),n};
+}
+$('go').onclick=async()=>{
+  const m=$('msg'), owner=$('owner').value.trim(), repo=$('repo').value.trim(), tok=$('tok').value.trim(), code=$('code').value;
+  m.className=''; $('out').value='';
+  if(!owner||!repo||!tok){m.className='err';m.textContent='יש למלא את כל השדות';return;}
+  if(code.length<8){m.className='err';m.textContent='קוד הצוות צריך להיות לפחות 8 תווים';return;}
+  if(code!==$('code2').value){m.className='err';m.textContent='הקודים לא תואמים';return;}
+  m.textContent='בודק מול GitHub…';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${owner}/${repo}`,{headers:{Authorization:'Bearer '+tok,Accept:'application/vnd.github+json'}});
+    if(!r.ok)throw 'GitHub החזיר '+r.status+' – בדוק את שם ה-repo ואת הטוקן';
+    const j=await r.json();
+    if(!(j.permissions&&j.permissions.push))throw 'לטוקן אין הרשאת כתיבה (Contents: Read and write)';
+    const enc=await encrypt(tok,code);
+    $('out').value=`OWNER: "${owner}",\nREPO: "${repo}",\nBRANCH: "${j.default_branch||'main'}",\nTOKEN_ENC: ${JSON.stringify(enc)},`;
+    m.className='ok'; m.textContent='✓ הטוקן תקין. החלף ב-config.js את ארבע השורות האלה, ושמור את הקובץ.';
+    $('tok').value='';
+  }catch(e){m.className='err';m.textContent=String(e);}
+};
+</script>
+</body>
+</html>

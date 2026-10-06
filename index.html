@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>לוח המחלקה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+:root{--bg:#e8f1f7;--panel:#fff;--ink:#15314a;--muted:#5d7387;--brand:#1d6a9e;--brand-dark:#14507a;--soft:#eef5fa;--accent:#e2703a;--now:#fff4e8;
+--meal:#2a9d8f;--med:#d1495b;--activity:#1d6a9e;--group:#7b5ea7;--ot:#c0841a;--visit:#e2703a;--rest:#56677a;--other:#5d7387}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--ink);font-family:Heebo,Arial,sans-serif;font-size:1.25vw;cursor:none}
+.app{display:grid;grid-template-rows:13vh 1fr 9vh;height:100vh;gap:1.4vh;padding:1.4vh 1.2vw}
+header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2vw;background:linear-gradient(90deg,var(--brand),var(--brand-dark));color:#fff;border-radius:1.2vw;padding:0 2.2vw}
+.hdate .g{font-size:2.1vw;font-weight:700}
+.hdate .h{font-size:1.55vw;opacity:.9;margin-top:.3vh}
+.clock{font-size:5.6vw;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.15vw;line-height:1}
+.hside{justify-self:end;text-align:left;font-size:1.45vw;line-height:1.55}
+.hside .wx{font-size:2vw;font-weight:700}
+main{display:grid;grid-template-columns:57fr 43fr;gap:1.2vw;min-height:0}
+.card{background:var(--panel);border-radius:1.2vw;padding:2vh 1.6vw;box-shadow:0 .4vh 1.4vh rgba(20,60,95,.08);display:flex;flex-direction:column;min-height:0;position:relative;overflow:hidden}
+h2{font-size:2vw;color:var(--brand);font-weight:800;margin-bottom:1.4vh;display:flex;align-items:center;gap:.8vw}
+h2 small{font-size:1.3vw;color:var(--muted);font-weight:500;margin-inline-start:auto}
+.sched{display:flex;flex-direction:column;gap:1vh;flex:1;min-height:0}
+.row{--c:var(--other);display:grid;grid-template-columns:9.5vw 1fr auto;align-items:center;gap:1.2vw;padding:1.15vh 1.2vw;background:var(--soft);border-radius:.8vw;border-inline-start:.55vw solid var(--c);font-size:2vw}
+.row .t{font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.row .t small{display:block;font-size:1.15vw;font-weight:500;color:var(--muted)}
+.row .ti{font-weight:600}
+.row .b{font-size:1.35vw;font-weight:700;color:var(--accent);white-space:nowrap}
+.row.past{opacity:.35}
+.row.next{background:#fff;box-shadow:0 0 0 .2vw var(--c) inset}
+.row.now{background:var(--now);box-shadow:0 0 0 .25vw var(--accent) inset}
+.row.now .b{background:var(--accent);color:#fff;padding:.4vh .9vw;border-radius:2vw}
+.empty{color:var(--muted);font-size:1.6vw;margin:auto;text-align:center}
+.slide{position:absolute;inset:0;padding:2vh 1.6vw 4.5vh;opacity:0;transition:opacity 1s ease;display:flex;flex-direction:column}
+.slide.on{opacity:1}
+.dots{position:absolute;bottom:1.5vh;left:0;right:0;display:flex;justify-content:center;gap:.6vw}
+.dots i{width:.7vw;height:.7vw;border-radius:50%;background:#c9d8e4}
+.dots i.on{background:var(--brand)}
+.kv{display:flex;flex-direction:column;gap:1.2vh;margin-bottom:1.6vh}
+.box{background:var(--soft);border-radius:.8vw;padding:1.3vh 1.2vw}
+.box .l{font-size:1.25vw;color:var(--muted)}
+.box .v{font-size:2.1vw;font-weight:800}
+.sub{font-size:1.4vw;color:var(--muted);font-weight:700;margin:.6vh 0 .8vh}
+.list{display:flex;flex-direction:column;gap:1vh}
+.li{display:flex;justify-content:space-between;align-items:center;gap:1vw;font-size:1.85vw;padding:1vh 1.1vw;background:var(--soft);border-radius:.8vw}
+.li b{font-weight:700}
+.li span{color:var(--muted);font-variant-numeric:tabular-nums;font-size:1.55vw;white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:.8vw}
+.chip{background:var(--soft);border-radius:2vw;padding:.9vh 1.2vw;font-size:1.6vw}
+.chip em{font-style:normal;color:var(--muted);font-size:1.25vw}
+.msgs{display:flex;flex-direction:column;gap:1.2vh}
+.msg{font-size:2vw;line-height:1.45;padding:1.6vh 1.3vw;background:var(--soft);border-radius:.8vw;border-inline-start:.5vw solid var(--brand)}
+.msg.imp{background:#fff1ea;border-color:var(--accent);font-weight:700}
+.big2{display:grid;grid-template-columns:1fr 1fr;gap:1vw}
+.big2 .box{text-align:center;padding:2.5vh 1vw}
+.big2 .box .v{font-size:2.8vw}
+.phone{margin-top:auto;text-align:center;font-size:3vw;font-weight:800;color:var(--brand);direction:ltr}
+.imgwrap{flex:1;border-radius:.8vw;background-size:cover;background-position:center;min-height:0}
+.cap{font-size:1.9vw;font-weight:700;text-align:center;margin-top:1vh}
+.shabbat{display:flex;flex-direction:column;gap:2vh;align-items:center;justify-content:center;flex:1;text-align:center}
+.shabbat .s1{font-size:5vw}
+.shabbat .s2{font-size:2.6vw;font-weight:800}
+footer{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2vw;background:var(--panel);border-radius:1.2vw;padding:0 2vw}
+.quote{font-size:2.1vw;font-weight:500;color:var(--brand-dark);transition:opacity 1.2s}
+.quote.fade{opacity:0}
+.contact{font-size:1.5vw;color:var(--muted);text-align:left;line-height:1.4}
+.contact b{color:var(--ink)}
+.night{position:fixed;inset:0;background:radial-gradient(circle at 50% 30%,#1c2f4f,#0a1324 70%);color:#dfe8f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.5vh;text-align:center;z-index:9}
+.night[hidden]{display:none}
+.night .moon{font-size:9vw}
+.night h1{font-size:7vw;font-weight:800}
+.night .nc{font-size:4vw;font-variant-numeric:tabular-nums;opacity:.85}
+.night p{font-size:2.2vw;opacity:.8;max-width:70vw;line-height:1.5}
+.night .ns{font-size:1.6vw;opacity:.6}
+.demo{position:fixed;bottom:.4vh;left:.6vw;font-size:.9vw;color:var(--muted);opacity:.6}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="hdate"><div class="g" id="gdate"></div><div class="h" id="hdate"></div></div>
+    <div class="clock" id="clock">--:--</div>
+    <div class="hside"><div class="wx" id="wx"></div><div id="shab"></div></div>
+  </header>
+  <main>
+    <section class="card"><h2>📋 סדר היום <small id="ward"></small></h2><div class="sched" id="sched"></div></section>
+    <section class="card" id="rot"></section>
+  </main>
+  <footer><div class="quote" id="quote"></div><div class="contact" id="contact"></div></footer>
+</div>
+<div class="night" id="night" hidden>
+  <div class="moon">🌙</div>
+  <h1>לילה טוב</h1>
+  <div class="nc" id="nclock"></div>
+  <p id="nmsg"></p>
+  <div class="ns" id="nsub"></div>
+</div>
+<div class="demo" id="demo"></div>
+
+<script>
+const CFG = Object.assign({OWNER:'',REPO:'',BRANCH:'main',DATA_PATH:'data.json',TOKEN_ENC:'',REFRESH_SECONDS:60,ROTATE_SECONDS:12,QUOTE_SECONDS:15,GEONAME_ID:281184,LAT:31.7683,LON:35.2137}, window.CONFIG||{});
+const CATS={meal:['ארוחה','🍽️','var(--meal)'],med:['תרופות','💊','var(--med)'],activity:['פעילות','🎯','var(--activity)'],group:['קבוצה טיפולית','👥','var(--group)'],ot:['ריפוי בעיסוק','🎨','var(--ot)'],visit:['ביקורים','🤝','var(--visit)'],rest:['מנוחה','🛏️','var(--rest)'],other:['אחר','📌','var(--other)']};
+const DEFAULT_QUOTES=['נשימה עמוקה אחת יכולה לעשות הבדל גדול','אתם לא לבד – הצוות כאן בשבילכם','כל יום הוא התחלה חדשה','צעד קטן הוא עדיין צעד קדימה','מותר לנוח. מותר לבקש עזרה','גם הרגש הקשה יחלוף, כמו ענן בשמיים','לאט לאט, בקצב שלכם','כוס מים והליכה קצרה – מתנה קטנה לגוף','אתם חשובים יותר ממה שנדמה לכם','היום מספיק לעשות את מה שאפשר'];
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const hm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
+const toMin=s=>{if(!s)return null;const p=String(s).split(':').map(Number);return p[0]*60+(p[1]||0)};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const safe={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+function activeOn(it,d){
+  const ds=ymd(d);
+  if(it.start&&ds<it.start)return false;
+  if(it.end&&ds>it.end)return false;
+  if(it.rec==='weekly'&&!(it.days||[]).map(Number).includes(d.getDay()))return false;
+  return true;
+}
+
+function demoItems(){
+  const t=ymd(new Date()), all=[0,1,2,3,4,5,6];
+  const s=(id,time,title,cat,extra)=>Object.assign({type:'schedule',id,time,title,cat,rec:'daily'},extra||{});
+  return [
+    {type:'settings',id:'settings',wardName:'מחלקה א׳',phone:'02-0000000',secretaryName:'רונית לוי',headName:'ד״ר משה כהן',visitMorning:'10:00-12:00',visitEvening:'16:00-19:00',sleepStart:'22:30',wakeTime:'06:30',nightMessage:'הגיע הזמן לנוח. הצוות ער ושומר עליכם כל הלילה.'},
+    {type:'staff',id:'s1',name:'ד״ר משה כהן',role:'מנהל/ת המחלקה',days:[0,1,2,3,4],from:'08:00',to:'15:00'},
+    {type:'staff',id:'s2',name:'ד״ר נועה ברק',role:'רופא/ה',days:[0,2,4,6],from:'08:00',to:'16:00'},
+    {type:'staff',id:'s3',name:'ד״ר סאמר חלבי',role:'רופא/ה',days:[1,3,5],from:'09:00',to:'14:00'},
+    {type:'staff',id:'s4',name:'אורית',role:'אח/ות אחראי/ת',days:all,from:'07:00',to:'15:00'},
+    {type:'staff',id:'s5',name:'מוחמד',role:'אח/ות',days:all,from:'07:00',to:'15:00'},
+    {type:'staff',id:'s6',name:'יעל',role:'אח/ות',days:all,from:'15:00',to:'23:00'},
+    {type:'staff',id:'s7',name:'שירה',role:'ריפוי בעיסוק',days:[0,1,2,3],from:'09:00',to:'14:00'},
+    {type:'staff',id:'s8',name:'רונית לוי',role:'מזכיר/ה',days:[0,1,2,3,4],from:'08:00',to:'16:00'},
+    s('a1','07:00','השכמה ורחצה','rest',{icon:'☀️'}),
+    s('a2','07:30','תרופות בוקר','med',{endTime:'08:00'}),
+    s('a3','08:00','ארוחת בוקר','meal',{endTime:'08:45'}),
+    s('a4','09:00','התעמלות בוקר','activity',{endTime:'09:45',icon:'🤸'}),
+    s('a5','10:30','סדנת יצירה','ot',{endTime:'11:30'}),
+    s('a6','11:30','קבוצת שיחה','group',{endTime:'12:15'}),
+    s('a7','12:30','ארוחת צהריים','meal',{endTime:'13:15'}),
+    s('a8','13:15','תרופות צהריים','med'),
+    s('a9','13:30','מנוחת צהריים','rest',{endTime:'15:00'}),
+    s('a10','15:00','קבוצת מוזיקה','ot',{endTime:'16:00',icon:'🎵',rec:'weekly',days:[0,2,4]}),
+    s('a11','18:00','ארוחת ערב','meal',{endTime:'18:45'}),
+    s('a12','20:00','תרופות ערב','med'),
+    s('a13','21:30','תרופות לילה','med'),
+    {type:'message',id:'m1',text:'מחר בשעה 10:00 תתקיים אסיפת מטופלים בחדר האוכל',important:true,rec:'once',start:t,end:t},
+    {type:'message',id:'m2',text:'אפשר לפנות לצוות בכל שאלה, בכל שעה',rec:'daily'},
+    {type:'message',id:'m3',text:'חשוב לשתות הרבה מים במהלך היום 💧',rec:'daily'},
+    {type:'image',id:'i1',url:'https://picsum.photos/seed/calmfield/1200/800',caption:'שיהיה יום רגוע',rec:'daily'}
+  ];
+}
+
+let DATA={items:[]}, SHAB=null, WX=null, HEB='', HEB_DAY='', slideIdx=0, quoteIdx=0, SLIDES=[], mode='';
+
+// קורא את data.json מ-GitHub. בקשה עם ETag: אם לא השתנה כלום – GitHub מחזיר 304 (לא נספר במכסה).
+let ETAG='';
+async function fetchRemote(){
+  if(CFG.OWNER&&CFG.REPO){
+    try{
+      const h={Accept:'application/vnd.github.raw+json'}; if(ETAG)h['If-None-Match']=ETAG;
+      const r=await fetch(`https://api.github.com/repos/${CFG.OWNER}/${CFG.REPO}/contents/${CFG.DATA_PATH}?ref=${CFG.BRANCH}`,{headers:h,cache:'no-store'});
+      if(r.status===304)return null;
+      if(r.ok){ETAG=r.headers.get('ETag')||'';return await r.json();}
+    }catch(e){}
+    try{
+      const r2=await fetch(`https://raw.githubusercontent.com/${CFG.OWNER}/${CFG.REPO}/${CFG.BRANCH}/${CFG.DATA_PATH}?t=${Date.now()}`,{cache:'no-store'});
+      if(r2.ok)return await r2.json();
+    }catch(e){}
+  }
+  const r3=await fetch(`${CFG.DATA_PATH}?t=${Date.now()}`,{cache:'no-store'});
+  if(r3.ok)return await r3.json();
+  throw 'no data';
+}
+async function loadData(){
+  if(!CFG.TOKEN_ENC){ // מצב הדגמה: מה שהוזן בדף הצוות באותו דפדפן
+    let local=null; try{local=JSON.parse(safe.get('ward-demo')||'null')}catch(e){}
+    if(local&&local.length){DATA={items:local}; mode='מצב הדגמה'; return;}
+  }
+  try{
+    const j=await fetchRemote();
+    if(j&&j.items){DATA=j; safe.set('ward-cache',JSON.stringify(j));}
+    mode='';
+  }catch(e){
+    let c=null; try{c=JSON.parse(safe.get('ward-cache')||'null')}catch(_){}
+    if(c){DATA=c; mode='אין חיבור – מוצג מידע אחרון';}
+    else {DATA={items:demoItems()}; mode='מצב הדגמה';}
+  }
+}
+
+async function loadShabbat(){
+  try{
+    const j=await (await fetch(`https://www.hebcal.com/shabbat?cfg=json&geonameid=${CFG.GEONAME_ID}&M=on&lg=he`)).json();
+    const c=j.items.find(i=>i.category==='candles'), h=j.items.find(i=>i.category==='havdalah'), p=j.items.find(i=>i.category==='parashat');
+    SHAB={in:c?new Date(c.date):null,out:h?new Date(h.date):null,parasha:p?(p.hebrew||p.title):''};
+  }catch(e){}
+}
+async function loadHebDate(){
+  const d=new Date(), key=ymd(d);
+  if(HEB_DAY===key)return;
+  try{
+    const j=await (await fetch(`https://www.hebcal.com/converter?cfg=json&gy=${d.getFullYear()}&gm=${d.getMonth()+1}&gd=${d.getDate()}&g2h=1`)).json();
+    HEB=(j.hebrew||'').replace(/[\u0591-\u05C7]/g,''); HEB_DAY=key;
+  }catch(e){
+    try{HEB=new Intl.DateTimeFormat('he-IL-u-ca-hebrew',{day:'numeric',month:'long',year:'numeric'}).format(d);}catch(_){HEB='';}
+  }
+}
+const WXI=c=>c===0?'☀️':c<=2?'🌤️':c===3?'☁️':c<=48?'🌫️':c<=67?'🌧️':c<=77?'❄️':c<=82?'🌦️':'⛈️';
+async function loadWeather(){
+  try{
+    const j=await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${CFG.LAT}&longitude=${CFG.LON}&current=temperature_2m,weather_code&timezone=Asia%2FJerusalem`)).json();
+    WX={t:Math.round(j.current.temperature_2m),c:j.current.weather_code};
+  }catch(e){}
+}
+
+function derive(now){
+  const items=DATA.items||[], by=t=>items.filter(i=>i.type===t);
+  const S=Object.assign({wardName:'',phone:'',secretaryName:'',headName:'',visitMorning:'',visitEvening:'',sleepStart:'22:30',wakeTime:'06:30',nightMessage:''},by('settings')[0]||{});
+  const today=ymd(now), dow=now.getDay();
+  const att=by('attendance').filter(a=>a.date===today);
+  const staff=by('staff').filter(s=>s.active!==false).map(s=>{
+    const a=att.find(x=>x.staffId===s.id);
+    let present=(s.days||[]).map(Number).includes(dow), from=s.from, to=s.to;
+    if(a){present=a.status==='in'; if(a.from)from=a.from; if(a.to)to=a.to;}
+    return Object.assign({},s,{present,from,to});
+  }).filter(s=>s.present);
+  att.filter(a=>!a.staffId&&a.status==='in').forEach(a=>staff.push({name:a.name,role:a.role,from:a.from,to:a.to}));
+  let sched=by('schedule').filter(i=>activeOn(i,now));
+  const vis=(v,label)=>{if(!v)return; const [a,b]=String(v).split(/[-–]/).map(x=>x.trim()); if(a)sched.push({time:a,endTime:b,title:label,cat:'visit'});};
+  vis(S.visitMorning,'שעות ביקור – בוקר'); vis(S.visitEvening,'שעות ביקור – ערב');
+  if(S.sleepStart)sched.push({time:S.sleepStart,title:'לילה טוב – שעת שינה',cat:'rest',icon:'🌙'});
+  sched.sort((a,b)=>toMin(a.time)-toMin(b.time));
+  const msgs=by('message').filter(i=>activeOn(i,now)).sort((a,b)=>(b.important?1:0)-(a.important?1:0));
+  let quotes=by('quote').filter(i=>activeOn(i,now)).map(q=>q.text).filter(Boolean);
+  if(!quotes.length)quotes=DEFAULT_QUOTES;
+  const images=by('image').filter(i=>activeOn(i,now)&&i.url);
+  return {S,staff,sched,msgs,quotes,images};
+}
+
+function renderSched(now,D){
+  const m=now.getHours()*60+now.getMinutes();
+  const rows=D.sched.map(i=>{const s=toMin(i.time);const e=i.endTime?toMin(i.endTime):s+30;return Object.assign({},i,{s,e})});
+  if(!rows.length){$('sched').innerHTML='<div class="empty">אין פעילויות מתוכננות להיום</div>';return;}
+  const cur=rows.findIndex(r=>m>=r.s&&m<r.e), next=rows.findIndex(r=>r.s>m);
+  const focus=cur>=0?cur:(next>=0?next:rows.length-1);
+  const MAX=8, start=Math.max(0,Math.min(focus-1,rows.length-MAX));
+  $('sched').innerHTML=rows.slice(start,start+MAX).map((r,k)=>{
+    const idx=start+k, c=CATS[r.cat]||CATS.other; let cls='row', b='';
+    if(r.e<=m)cls+=' past';
+    if(idx===cur){cls+=' now';b='עכשיו';}
+    else if(idx===next){const d=r.s-m; if(d<=180){cls+=' next'; b=d<60?`בעוד ${d} דקות`:`בעוד ${Math.floor(d/60)}:${pad(d%60)} שעות`;}}
+    return `<div class="${cls}" style="--c:${c[2]}"><div class="t">${esc(r.time)}${r.endTime?`<small>עד ${esc(r.endTime)}</small>`:''}</div><div class="ti">${esc(r.icon||c[1])} ${esc(r.title)}</div><div class="b">${b}</div></div>`;
+  }).join('');
+}
+
+function buildSlides(now,D){
+  const out=[], S=D.S;
+  const isDoc=s=>/רופא|מנהל|ד״ר|ד"ר/.test((s.role||'')+' '+(s.name||''));
+  const hrs=s=>s.from||s.to?`${esc(s.from||'')}–${esc(s.to||'')}`:'';
+  const docs=D.staff.filter(isDoc), others=D.staff.filter(s=>!isDoc(s));
+  out.push(`<h2>🩺 הרופאים במחלקה היום</h2>
+    <div class="kv">${S.headName?`<div class="box"><div class="l">מנהל/ת המחלקה</div><div class="v">${esc(S.headName)}</div></div>`:''}</div>
+    <div class="list">${docs.length?docs.map(s=>`<div class="li"><b>${esc(s.name)}</b><span>${hrs(s)}</span></div>`).join(''):'<div class="empty">לא עודכנו רופאים להיום</div>'}</div>`);
+  if(others.length||S.secretaryName){
+    out.push(`<h2>👩‍⚕️ הצוות שלנו היום</h2>
+      ${S.secretaryName?`<div class="kv"><div class="box"><div class="l">מזכירת המחלקה</div><div class="v">${esc(S.secretaryName)}</div></div></div>`:''}
+      <div class="chips">${others.map(s=>`<div class="chip">${esc(s.name)} <em>· ${esc(s.role||'')}${hrs(s)?' · '+hrs(s):''}</em></div>`).join('')}</div>`);
+  }
+  for(let i=0;i<D.msgs.length;i+=3){
+    out.push(`<h2>📣 הודעות</h2><div class="msgs">${D.msgs.slice(i,i+3).map(x=>`<div class="msg${x.important?' imp':''}">${esc(x.text)}</div>`).join('')}</div>`);
+  }
+  const mm=D.sched.filter(i=>i.cat==='meal'||i.cat==='med');
+  if(mm.length) out.push(`<h2>🍽️ ארוחות ותרופות</h2><div class="list">${mm.map(i=>`<div class="li" style="border-inline-start:.45vw solid ${CATS[i.cat][2]}"><b>${esc(i.icon||CATS[i.cat][1])} ${esc(i.title)}</b><span>${esc(i.time)}</span></div>`).join('')}</div>`);
+  const ot=D.sched.filter(i=>i.cat==='ot'||i.cat==='group');
+  if(ot.length) out.push(`<h2>🎨 קבוצות וריפוי בעיסוק היום</h2><div class="list">${ot.map(i=>`<div class="li"><b>${esc(i.icon||CATS[i.cat][1])} ${esc(i.title)}</b><span>${esc(i.time)}${i.endTime?'–'+esc(i.endTime):''}</span></div>`).join('')}</div>`);
+  if(S.visitMorning||S.visitEvening||S.phone) out.push(`<h2>🤝 שעות ביקור</h2>
+    <div class="big2"><div class="box"><div class="l">בוקר</div><div class="v">${esc(S.visitMorning||'—')}</div></div><div class="box"><div class="l">ערב</div><div class="v">${esc(S.visitEvening||'—')}</div></div></div>
+    ${S.phone?`<div class="sub" style="text-align:center;margin-top:3vh">טלפון המחלקה</div><div class="phone" style="margin-top:0">📞 ${esc(S.phone)}</div>`:''}`);
+  const dow=now.getDay();
+  if(SHAB&&(dow===5||dow===6||dow===4)) out.push(`<div class="shabbat"><div class="s1">🕯️🕯️</div><div class="s2">שבת שלום</div>
+    ${SHAB.parasha?`<div class="sub">${esc(SHAB.parasha)}</div>`:''}
+    <div class="big2" style="width:100%"><div class="box"><div class="l">כניסת שבת</div><div class="v">${SHAB.in?hm(SHAB.in):'—'}</div></div><div class="box"><div class="l">יציאת שבת</div><div class="v">${SHAB.out?hm(SHAB.out):'—'}</div></div></div></div>`);
+  D.images.forEach(im=>out.push(`<div class="imgwrap" style="background-image:url('${esc(im.url)}')"></div>${im.caption?`<div class="cap">${esc(im.caption)}</div>`:''}`));
+  return out;
+}
+
+function renderSlides(){
+  const rot=$('rot');
+  if(!SLIDES.length){rot.innerHTML='';return;}
+  slideIdx%=SLIDES.length;
+  rot.innerHTML=SLIDES.map((h,i)=>`<div class="slide${i===slideIdx?' on':''}">${h}</div>`).join('')+
+    `<div class="dots">${SLIDES.map((_,i)=>`<i class="${i===slideIdx?'on':''}"></i>`).join('')}</div>`;
+}
+function nextSlide(){
+  if(SLIDES.length<2)return;
+  slideIdx=(slideIdx+1)%SLIDES.length;
+  document.querySelectorAll('#rot .slide').forEach((s,i)=>s.classList.toggle('on',i===slideIdx));
+  document.querySelectorAll('#rot .dots i').forEach((s,i)=>s.classList.toggle('on',i===slideIdx));
+}
+
+function inNight(now,S){
+  const s=toMin(S.sleepStart), w=toMin(S.wakeTime); if(s==null||w==null)return false;
+  const m=now.getHours()*60+now.getMinutes();
+  return s>w?(m>=s||m<w):(m>=s&&m<w);
+}
+
+let D=null;
+function renderAll(){
+  const now=new Date(); D=derive(now); const S=D.S;
+  $('gdate').textContent=now.toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  $('hdate').textContent=HEB;
+  $('ward').textContent=S.wardName||'';
+  $('wx').textContent=WX?`${WXI(WX.c)} ${WX.t}°`:'';
+  let sh='';
+  if(SHAB&&SHAB.in&&SHAB.out){
+    sh=(now>=SHAB.in&&now<SHAB.out)?`🕯️ שבת שלום · יציאה ${hm(SHAB.out)}`:`🕯️ כניסה ${hm(SHAB.in)} · יציאה ${hm(SHAB.out)}`;
+  }
+  $('shab').textContent=sh;
+  const parts=[];
+  if(S.phone)parts.push(`📞 טלפון המחלקה: <b dir="ltr">${esc(S.phone)}</b>`);
+  if(S.secretaryName)parts.push(`מזכירה: <b>${esc(S.secretaryName)}</b>`);
+  $('contact').innerHTML=parts.join('<br>');
+  renderSched(now,D);
+  const ns=buildSlides(now,D);
+  if(ns.join('|')!==SLIDES.join('|')){SLIDES=ns; renderSlides();}
+  const night=inNight(now,S);
+  $('night').hidden=!night;
+  if(night){
+    $('nmsg').textContent=S.nightMessage||'הגיע הזמן לנוח. הצוות כאן איתכם כל הלילה.';
+    $('nsub').textContent=`שעות מנוחה ${S.sleepStart}–${S.wakeTime}`+(S.phone?` · טלפון המחלקה ${S.phone}`:'');
+  }
+  $('demo').textContent=mode;
+}
+
+function tick(){
+  const now=new Date();
+  $('clock').textContent=hm(now); $('nclock').textContent=hm(now);
+}
+function rotateQuote(){
+  if(!D)return; const q=$('quote'); q.classList.add('fade');
+  setTimeout(()=>{quoteIdx=(quoteIdx+1)%D.quotes.length; q.textContent='🌿 '+D.quotes[quoteIdx]; q.classList.remove('fade');},1200);
+}
+
+(async function start(){
+  tick(); await loadData(); renderAll();
+  $('quote').textContent='🌿 '+D.quotes[0];
+  loadHebDate().then(renderAll); loadShabbat().then(renderAll); loadWeather().then(renderAll);
+  setInterval(tick,1000);
+  setInterval(renderAll,20000);
+  setInterval(nextSlide,CFG.ROTATE_SECONDS*1000);
+  setInterval(rotateQuote,CFG.QUOTE_SECONDS*1000);
+  setInterval(async()=>{await loadData(); renderAll();},CFG.REFRESH_SECONDS*1000);
+  setInterval(()=>{loadHebDate();loadWeather();},30*60*1000);
+  setInterval(loadShabbat,6*3600*1000);
+  setTimeout(()=>location.reload(),6*3600*1000); // טוען מחדש כדי לקבל עדכוני קוד מ-GitHub
+})();
+</script>
+</body>
+</html>

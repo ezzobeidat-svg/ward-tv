@@ -1,0 +1,94 @@
+{
+ "updated": "2026-10-06T00:00:00Z",
+ "items": [
+  {
+   "type": "settings",
+   "id": "settings",
+   "wardName": "שם המחלקה",
+   "phone": "02-0000000",
+   "secretaryName": "",
+   "headName": "",
+   "visitMorning": "10:00-12:00",
+   "visitEvening": "16:00-19:00",
+   "sleepStart": "22:30",
+   "wakeTime": "06:30",
+   "nightMessage": "הגיע הזמן לנוח. הצוות ער ושומר עליכם כל הלילה."
+  },
+  {
+   "type": "schedule",
+   "id": "a1",
+   "time": "07:00",
+   "title": "השכמה ורחצה",
+   "cat": "rest",
+   "rec": "daily",
+   "icon": "☀️"
+  },
+  {
+   "type": "schedule",
+   "id": "a2",
+   "time": "07:30",
+   "title": "תרופות בוקר",
+   "cat": "med",
+   "rec": "daily",
+   "endTime": "08:00"
+  },
+  {
+   "type": "schedule",
+   "id": "a3",
+   "time": "08:00",
+   "title": "ארוחת בוקר",
+   "cat": "meal",
+   "rec": "daily",
+   "endTime": "08:45"
+  },
+  {
+   "type": "schedule",
+   "id": "a7",
+   "time": "12:30",
+   "title": "ארוחת צהריים",
+   "cat": "meal",
+   "rec": "daily",
+   "endTime": "13:15"
+  },
+  {
+   "type": "schedule",
+   "id": "a8",
+   "time": "13:15",
+   "title": "תרופות צהריים",
+   "cat": "med",
+   "rec": "daily"
+  },
+  {
+   "type": "schedule",
+   "id": "a9",
+   "time": "13:30",
+   "title": "מנוחת צהריים",
+   "cat": "rest",
+   "rec": "daily",
+   "endTime": "15:00"
+  },
+  {
+   "type": "schedule",
+   "id": "a11",
+   "time": "18:00",
+   "title": "ארוחת ערב",
+   "cat": "meal",
+   "rec": "daily",
+   "endTime": "18:45"
+  },
+  {
+   "type": "schedule",
+   "id": "a12",
+   "time": "20:00",
+   "title": "תרופות ערב",
+   "cat": "med",
+   "rec": "daily"
+  },
+  {
+   "type": "message",
+   "id": "m1",
+   "text": "אפשר לפנות לצוות בכל שאלה, בכל שעה",
+   "rec": "daily"
+  }
+ ]
+}
