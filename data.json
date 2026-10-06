@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T19:21:42.772Z",
+ "updated": "2026-10-06T19:22:41.411Z",
  "items": [
   {
    "type": "settings",
@@ -142,6 +142,18 @@
    "id": "komtgmp3",
    "by": "ezz",
    "updated": "2026-10-06T19:19:17.530Z"
+  },
+  {
+   "type": "message",
+   "text": "שעות יציא ממחלקה מ 9:00 ועד 13:00 \nומ16:00 עד 20:00",
+   "important": true,
+   "rec": "daily",
+   "days": [],
+   "start": "",
+   "end": "",
+   "id": "6v2h4niv",
+   "by": "ezz",
+   "updated": "2026-10-06T19:22:41.411Z"
   }
  ]
 }
