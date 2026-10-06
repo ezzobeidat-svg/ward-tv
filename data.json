@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T19:22:41.411Z",
+ "updated": "2026-10-06T19:23:55.959Z",
  "items": [
   {
    "type": "settings",
@@ -154,6 +154,19 @@
    "id": "6v2h4niv",
    "by": "ezz",
    "updated": "2026-10-06T19:22:41.411Z"
+  },
+  {
+   "type": "attendance",
+   "id": "att_2026-10-06_komtgmp3",
+   "staffId": "komtgmp3",
+   "name": "עז אלדין עבידאת",
+   "role": "אח/ות",
+   "date": "2026-10-06",
+   "status": "in",
+   "from": "20:00",
+   "to": "16:00",
+   "by": "ezz",
+   "updated": "2026-10-06T19:23:55.959Z"
   }
  ]
 }
