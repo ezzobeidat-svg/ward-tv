@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06T19:19:59.305Z",
+ "updated": "2026-10-06T19:20:30.741Z",
  "items": [
   {
    "type": "settings",
@@ -43,11 +43,17 @@
   {
    "type": "schedule",
    "id": "a3",
-   "time": "08:00",
+   "time": "08:30",
    "title": "ארוחת בוקר",
    "cat": "meal",
    "rec": "daily",
-   "endTime": "08:45"
+   "endTime": "09:00",
+   "icon": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "ezz",
+   "updated": "2026-10-06T19:20:30.741Z"
   },
   {
    "type": "schedule",
