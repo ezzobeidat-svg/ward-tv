@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>עדכון לוח המחלקה</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
+<script src="gh.js"></script>
 <style>
 :root{--bg:#eef4f8;--panel:#fff;--ink:#15314a;--muted:#5d7387;--brand:#1d6a9e;--line:#d6e2ec;--ok:#2a9d8f;--no:#d1495b;--warn:#fff4e0}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:Heebo,Arial,sans-serif;font-size:16px;line-height:1.45}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:Heebo,'Noto Sans Arabic',Arial,sans-serif;font-size:16px;line-height:1.45}
 button,input,select,textarea{font:inherit}
 .login{max-width:380px;margin:12vh auto;background:var(--panel);padding:28px;border-radius:16px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 18px rgba(0,0,0,.06)}
 .login h1{font-size:22px;color:var(--brand)}
@@ -17,6 +19,7 @@ label{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--mute
 input,select,textarea{border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);background:#fff;width:100%}
 textarea{min-height:80px;resize:vertical}
 .btn{background:var(--brand);color:#fff;border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}
+.btn:disabled{opacity:.5}
 .btn.sec{background:#e6eef5;color:var(--ink)}
 .btn.ok{background:var(--ok)}.btn.no{background:var(--no)}
 .btn.sm{padding:7px 11px;font-size:14px}
@@ -40,15 +43,16 @@ main{max-width:760px;margin:0 auto;padding:16px 12px 80px;display:flex;flex-dire
 fieldset.when{border:1px dashed var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
 legend{padding:0 6px;color:var(--brand);font-weight:700;font-size:14px}
 .w-weekly,.w-once,.w-temp{display:none}
-form[data-rec=weekly] .w-weekly{display:block}
-form[data-rec=once] .w-once{display:grid}
-form[data-rec=once] .w-valid{display:none}
-form[data-valid=temp] .w-temp{display:grid}
+[data-rec=weekly] .w-weekly{display:block}
+[data-rec=once] .w-once{display:grid}
+[data-rec=once] .w-valid{display:none}
+[data-valid=temp] .w-temp{display:grid}
 .items{display:flex;flex-direction:column;gap:8px}
 .item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center}
 .item .tx{flex:1;min-width:0}
 .item .tx b{display:block;overflow-wrap:anywhere}
 .item .meta{font-size:13px;color:var(--muted)}
+.meta{font-size:13px;color:var(--muted)}
 .tag{display:inline-block;font-size:12px;border-radius:12px;padding:1px 8px;margin-inline-start:4px;background:#e6eef5}
 .tag.on{background:#dff3ef;color:#1d7468}.tag.off{background:#fde8eb;color:#a33}
 .att{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
@@ -57,16 +61,36 @@ form[data-valid=temp] .w-temp{display:grid}
 .att .acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .att .acts input{width:110px}
 .banner{background:var(--warn);border-radius:12px;padding:10px 14px;font-size:14px}
-#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#15314a;color:#fff;padding:10px 18px;border-radius:24px;opacity:0;transition:.3s;pointer-events:none;z-index:9}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#15314a;color:#fff;padding:10px 18px;border-radius:24px;opacity:0;transition:.3s;pointer-events:none;z-index:9;max-width:90vw;text-align:center}
 #toast.on{opacity:1}
-.row{display:flex;gap:8px;flex-wrap:wrap}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.drop{border:2px dashed #9cc0da;border-radius:14px;padding:26px 14px;text-align:center;background:#f5f9fc;cursor:pointer;display:block;color:var(--ink)}
+.drop.over{background:#e3f0f9;border-color:var(--brand)}
+.drop b{font-size:18px;display:block;margin-bottom:4px}
+.prog{height:8px;background:#e6eef5;border-radius:8px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ph{border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;background:#fff}
+.ph.off{opacity:.5}
+.ph img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#e6eef5;display:block}
+.ph .pb{padding:8px;display:flex;flex-direction:column;gap:6px}
+.ph input{padding:6px 8px;font-size:14px}
+.ph .row{justify-content:space-between}
+.trs{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#f5f9fc;border-radius:10px;padding:8px;margin-top:-4px}
+.trs label{font-size:12px}
+.trs input,.trs textarea{padding:8px 10px;font-size:15px}
+.trs textarea{min-height:60px}
+@media(max-width:520px){.trs{grid-template-columns:1fr}}
+.lb{display:inline-block;font-size:11px;border-radius:8px;padding:0 6px;margin-inline-start:3px;background:#e6eef5;color:var(--muted)}
+.lb.y{background:#dff3ef;color:#1d7468}
+.linkbox{direction:ltr;font-size:13px;background:#f5f9fc;border:1px solid var(--line);border-radius:10px;padding:10px;word-break:break-all}
 </style>
 </head>
 <body>
 <div class="login" id="login">
   <h1>עדכון לוח המחלקה</h1>
   <label>השם שלך<input id="who" autocomplete="name"></label>
-  <label>קוד צוות<input id="pin" type="password" inputmode="numeric"></label>
+  <label>קוד צוות<input id="pin" type="password"></label>
   <button class="btn" id="enter">כניסה</button>
   <div class="err" id="lerr"></div>
 </div>
@@ -78,88 +102,27 @@ form[data-valid=temp] .w-temp{display:grid}
 <div id="toast"></div>
 
 <script>
-const CFG=Object.assign({OWNER:'',REPO:'',BRANCH:'main',DATA_PATH:'data.json',TOKEN_ENC:''},window.CONFIG||{});
-const DEMO=!CFG.TOKEN_ENC;
-const GH='https://api.github.com';
-let TOKEN='';
+const W=window.WardGH,DEMO=W.DEMO,ymd=W.ymd,uid=W.uid;
 const DAYS=['א׳','ב׳','ג׳','ד׳','ה׳','ו׳','ש׳'];
 const ROLES=['מנהל/ת המחלקה','רופא/ה','אח/ות אחראי/ת','אח/ות','מזכיר/ה','ריפוי בעיסוק','עובד/ת סוציאלי/ת','פסיכולוג/ית','כוח עזר','אחר'];
 const CATS={meal:'🍽️ ארוחה',med:'💊 תרופות',activity:'🎯 פעילות',group:'👥 קבוצה טיפולית',ot:'🎨 ריפוי בעיסוק',visit:'🤝 ביקורים',rest:'🛏️ מנוחה',other:'📌 אחר'};
+const SCENE_NAMES={nownext:'⏰ עכשיו והבא בתור (גדול)',meals:'🍽️ ארוחות ותרופות (גדול)',messages:'📣 הודעות (מסך מלא)',photos:'🖼️ תמונות (מסך מלא)',dayparts:'🗓️ היום: בוקר / צהריים / ערב',staff:'👩‍⚕️ הצוות היום',visits:'🤝 שעות ביקור',shabbat:'🕯️ שבת שלום (חמישי–שבת)'};
 const pad=n=>String(n).padStart(2,'0');
-const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const fmt=s=>s?s.split('-').reverse().slice(0,2).join('/'):'';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 const ss={get(k){try{return sessionStorage.getItem(k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}};
-const lsd={get(){try{return JSON.parse(localStorage.getItem('ward-demo')||'[]')}catch(e){return[]}},set(v){try{localStorage.setItem('ward-demo',JSON.stringify(v))}catch(e){}}};
-let PIN='',WHO='',ITEMS=[],TAB='att',EDIT=null;
+let PIN='',WHO='',ITEMS=[],TAB='att',EDIT=null,BUSY=false;
 
-function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200);}
-const uid=()=>Math.random().toString(36).slice(2,10);
-
-/* ---------- GitHub ---------- */
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function b64e(str){const b=new TextEncoder().encode(str);let s='';for(let i=0;i<b.length;i+=8192)s+=String.fromCharCode.apply(null,b.subarray(i,i+8192));return btoa(s);}
-function b64d(b64){const bin=atob(String(b64).replace(/\s/g,''));return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));}
-async function decryptToken(enc,code){
-  const o=typeof enc==='string'?JSON.parse(enc):enc;
-  const ub=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
-  const km=await crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']);
-  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:ub(o.s),iterations:o.n||310000,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
-  return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(o.i)},key,ub(o.c)));
-}
-const fileUrl=()=>`${GH}/repos/${CFG.OWNER}/${CFG.REPO}/contents/${CFG.DATA_PATH}`;
-const ghHeaders=()=>({Authorization:'Bearer '+TOKEN,Accept:'application/vnd.github+json'});
-async function ghGet(){
-  const r=await fetch(`${fileUrl()}?ref=${encodeURIComponent(CFG.BRANCH)}`,{headers:ghHeaders(),cache:'no-store'});
-  if(r.status===404)return {sha:null,items:[]};
-  if(r.status===401)throw 'הטוקן לא תקין או פג תוקפו';
-  if(!r.ok)throw 'שגיאת GitHub '+r.status;
-  const j=await r.json(); const d=JSON.parse(b64d(j.content)||'{"items":[]}');
-  return {sha:j.sha,items:d.items||[]};
-}
-function prune(items){
-  const c=new Date(); c.setDate(c.getDate()-30); const cut=ymd(c);
-  return items.filter(i=>!((i.type==='attendance'&&i.date&&i.date<cut)||(i.end&&i.end<cut)));
-}
-function applyOp(items,body){
-  items=items.slice();
-  if(body.action==='save')body.items.forEach(it=>{
-    it=Object.assign({},it); if(!it.id)it.id=uid(); it.by=WHO; it.updated=new Date().toISOString();
-    const i=items.findIndex(x=>x.id===it.id); if(i>=0)items[i]=it; else items.push(it);
-  });
-  if(body.action==='delete')items=items.filter(x=>x.id!==body.id);
-  return prune(items);
-}
-async function api(body){
-  if(DEMO){const items=applyOp(lsd.get(),body); lsd.set(items); return {ok:true,items};}
-  for(let t=0;t<4;t++){
-    const cur=await ghGet();
-    const items=applyOp(cur.items,body);
-    const what=body.action==='delete'?'מחיקה':'עדכון '+((body.items&&body.items[0]&&body.items[0].type)||'');
-    const r=await fetch(fileUrl(),{method:'PUT',headers:ghHeaders(),body:JSON.stringify({
-      message:`${what} – ${WHO}`,
-      content:b64e(JSON.stringify({updated:new Date().toISOString(),items},null,1)),
-      branch:CFG.BRANCH, ...(cur.sha?{sha:cur.sha}:{})})});
-    if(r.ok)return {ok:true,items};
-    if(r.status===409||r.status===422){await sleep(500+Math.random()*800);continue;} // מישהו אחר שמר באותו רגע – מנסים שוב
-    if(r.status===401||r.status===403||r.status===404)return {ok:false,error:'אין הרשאת כתיבה ל-repo (בדוק את הטוקן)'};
-    return {ok:false,error:'GitHub '+r.status};
-  }
-  return {ok:false,error:'עומס – נסה שוב'};
-}
-async function load(){
-  if(DEMO){ITEMS=lsd.get();return;}
-  ITEMS=(await ghGet()).items;
-}
-async function save(items){
-  try{const j=await api({action:'save',items:[].concat(items)}); if(!j.ok)throw j.error||'שגיאה'; ITEMS=j.items; toast('נשמר ✓'); render();}
+function toast(t){const e=$('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600);}
+async function run(fn,ok){
+  if(BUSY)return;BUSY=true;
+  try{ITEMS=await fn();if(ok)toast(ok);render();}
   catch(e){toast('לא נשמר: '+e);}
+  finally{BUSY=false;}
 }
-async function del(id){
-  try{const j=await api({action:'delete',id}); if(!j.ok)throw j.error||'שגיאה'; ITEMS=j.items; toast('נמחק'); render();}
-  catch(e){toast('שגיאה: '+e);}
-}
+const save=(items,label)=>run(()=>W.save(items,label),'נשמר ✓ – יופיע במסך תוך כדקה');
+const del=(ids,label)=>run(()=>W.del(ids,label),'נמחק');
 const by=t=>ITEMS.filter(i=>i.type===t);
 const settings=()=>by('settings')[0]||{type:'settings',id:'settings'};
 
@@ -175,10 +138,10 @@ function statusTag(it){
   return activeOn(it,new Date())?'<span class="tag on">מוצג היום</span>':'<span class="tag">לא היום</span>';
 }
 
-/* ---------- טופס "מתי להציג" ---------- */
+/* ---------- מתי להציג ---------- */
 function daysBoxes(name,sel){return `<div class="seg">${DAYS.map((d,i)=>`<label><input type="checkbox" name="${name}" value="${i}" ${sel.includes(i)?'checked':''}>${d}</label>`).join('')}</div>`;}
 function whenHTML(it){
-  const rec=it.rec||'daily', days=(it.days||[]).map(Number), temp=rec!=='once'&&!!it.end;
+  const rec=it.rec||'daily',days=(it.days||[]).map(Number),temp=rec!=='once'&&!!it.end;
   return `<fieldset class="when"><legend>מתי להציג</legend>
    <div class="seg">${[['daily','כל יום'],['weekly','ימים מסוימים בשבוע'],['once','תאריך מסוים']].map(([v,l])=>`<label><input type="radio" name="rec" value="${v}" ${rec===v?'checked':''}>${l}</label>`).join('')}</div>
    <div class="w-weekly">${daysBoxes('wdays',days)}</div>
@@ -189,8 +152,8 @@ function whenHTML(it){
 }
 function syncWhen(f){const r=f.querySelector('input[name=rec]:checked'),v=f.querySelector('input[name=valid]:checked');if(r)f.dataset.rec=r.value;if(v)f.dataset.valid=v.value;}
 function readWhen(f){
-  const E=f.elements, rec=f.querySelector('input[name=rec]:checked').value, o={rec,days:[],start:'',end:''};
-  if(rec==='weekly'){o.days=[...f.querySelectorAll('input[name=wdays]:checked')].map(x=>+x.value); if(!o.days.length)throw 'יש לבחור לפחות יום אחד';}
+  const E=f.elements,rec=f.querySelector('input[name=rec]:checked').value,o={rec,days:[],start:'',end:''};
+  if(rec==='weekly'){o.days=[...f.querySelectorAll('input[name=wdays]:checked')].map(x=>+x.value);if(!o.days.length)throw 'יש לבחור לפחות יום אחד';}
   if(rec==='once'){o.start=E.onceStart.value;o.end=E.onceEnd.value||E.onceStart.value;if(!o.start)throw 'יש לבחור תאריך';}
   else if(f.querySelector('input[name=valid]:checked').value==='temp'){o.start=E.vstart.value||ymd(new Date());o.end=E.vend.value;if(!o.end)throw 'יש לבחור תאריך סיום';}
   return o;
@@ -199,35 +162,54 @@ function readWhen(f){
 /* ---------- סוגי מידע ---------- */
 const TYPES={
   schedule:{tab:'סדר יום',title:'פעילות בסדר היום',when:true,
-    fields:[['title','שם הפעילות','text',1],['time','שעת התחלה','time',1],['endTime','שעת סיום','time'],['cat','סוג','select',1,CATS],['icon','אייקון (אמוג׳י, לא חובה)','text']],
+    fields:[['title','שם הפעילות','text',1],['time','שעת התחלה','time',1],['endTime','שעת סיום','time'],['cat','סוג (ארוחה ותרופות מוצגות גדול במסך)','select',1,CATS],['icon','אייקון (אמוג׳י, לא חובה)','text']],
     sort:(a,b)=>(a.time||'').localeCompare(b.time||''),
-    sum:i=>`<b>${esc(i.time)} · ${esc(i.title)}</b><div class="meta">${esc((CATS[i.cat]||'').split(' ').slice(1).join(' '))} · ${whenLabel(i)} ${statusTag(i)}</div>`},
+    sum:i=>`<b>${esc(i.time)} · ${esc(i.title)}</b><div class="meta">${langBadges(i,'title')} ${esc((CATS[i.cat]||'').split(' ').slice(1).join(' '))} · ${whenLabel(i)} ${statusTag(i)}</div>`},
   message:{tab:'הודעות',title:'הודעה למטופלים',when:true,
-    fields:[['text','תוכן ההודעה','textarea',1],['important','הודעה חשובה (מודגשת)','check']],
-    sum:i=>`<b>${i.important?'❗ ':''}${esc(i.text)}</b><div class="meta">${whenLabel(i)} ${statusTag(i)}</div>`},
-  staff:{tab:'צוות',title:'איש צוות',
+    fields:[['text','תוכן ההודעה (תוצג גדול על כל המסך)','textarea',1],['important','הודעה חשובה (צבע בולט)','check']],
+    sum:i=>`<b>${i.important?'❗ ':''}${esc(i.text)}</b><div class="meta">${langBadges(i,'text')} ${whenLabel(i)} ${statusTag(i)}</div>`},
+  staff:{tab:'צוות',title:'איש צוות קבוע',
     fields:[['name','שם (כפי שיופיע במסך)','text',1],['role','תפקיד','select',1,ROLES],['days','ימי עבודה קבועים','days'],['from','משעה','time'],['to','עד שעה','time'],['active','פעיל/ה','check',0,null,true]],
     sort:(a,b)=>ROLES.indexOf(a.role)-ROLES.indexOf(b.role),
     sum:i=>`<b>${esc(i.name)} ${i.active===false?'<span class="tag off">לא פעיל</span>':''}</b><div class="meta">${esc(i.role)} · ${(i.days||[]).map(d=>DAYS[d]).join(' ')||'ללא ימים קבועים'} ${i.from?'· '+esc(i.from)+'–'+esc(i.to||''):''}</div>`},
   quote:{tab:'משפטים',title:'משפט מרגיע',when:true,
-    fields:[['text','משפט','textarea',1]],
-    sum:i=>`<b>${esc(i.text)}</b><div class="meta">${whenLabel(i)} ${statusTag(i)}</div>`},
+    fields:[['text','משפט (משפט שלא תורגם יוצג רק במסך העברי)','textarea',1]],
+    sum:i=>`<b>${esc(i.text)}</b><div class="meta">${langBadges(i,'text')} ${whenLabel(i)} ${statusTag(i)}</div>`},
   image:{tab:'תמונות',title:'תמונה',when:true,
-    fields:[['url','קישור לתמונה (למשל images/sea.jpg)','text',1],['caption','כיתוב','text']],
-    sum:i=>`<b>${esc(i.caption||'תמונה')}</b><div class="meta" style="overflow-wrap:anywhere">${esc(i.url)} · ${whenLabel(i)} ${statusTag(i)}</div>`}
+    fields:[['caption','כיתוב (לא חובה)','text']]}
 };
 
+const TR_FIELDS=['title','text','caption','name','wardName','headName','secretaryName','nightMessage','visitNote'];
+function trHTML(k,type,it){
+  const one=(l,lab,dir)=>{const n=`${k}_${l}`,v=esc(it[n]||'');
+    return `<label>${lab}${type==='textarea'?`<textarea name="${n}" dir="${dir}" lang="${l}">${v}</textarea>`:`<input name="${n}" dir="${dir}" lang="${l}" value="${v}">`}</label>`;};
+  return `<div class="trs">${one('ar','🌐 بالعربية (לא חובה)','rtl')}${one('en','🌐 In English (לא חובה)','ltr')}</div>`;
+}
+const langBadges=(i,f)=>`<span class="lb y">עב</span><span class="lb${i[f+'_ar']?' y':''}">ع</span><span class="lb${i[f+'_en']?' y':''}">EN</span>`;
 function fieldHTML(f,it){
-  const [k,label,type,req,opts,def]=f; const v=it[k]??(def??'');
+  const[k,label,type,req,opts,def]=f;const v=it[k]??(def??'');
+  if(TR_FIELDS.includes(k)&&(type==='text'||type==='textarea'))return fieldHTML([k,label,type==='text'?'text0':'textarea0',req,opts,def],it)+trHTML(k,type,it);
+  if(type==='textarea0')return `<label>${label}<textarea name="${k}" ${req?'required':''}>${esc(v)}</textarea></label>`;
+  if(type==='text0')return `<label>${label}<input type="text" name="${k}" value="${esc(v)}" ${req?'required':''}></label>`;
   if(type==='textarea')return `<label>${label}<textarea name="${k}" ${req?'required':''}>${esc(v)}</textarea></label>`;
   if(type==='check')return `<label class="check"><input type="checkbox" name="${k}" ${(it[k]??def)?'checked':''}>${label}</label>`;
   if(type==='days')return `<label>${label}</label>${daysBoxes(k,(it[k]||[]).map(Number))}`;
   if(type==='select'){const o=Array.isArray(opts)?opts.map(x=>[x,x]):Object.entries(opts);return `<label>${label}<select name="${k}">${o.map(([a,b])=>`<option value="${esc(a)}" ${a===v?'selected':''}>${esc(b)}</option>`).join('')}</select></label>`;}
   return `<label>${label}<input type="${type}" name="${k}" value="${esc(v)}" ${req?'required':''}></label>`;
 }
+function readFields(f,T,base){
+  T.fields.forEach(([k,,t])=>{
+    if(t==='check')base[k]=f.elements[k].checked;
+    else if(t==='days')base[k]=[...f.querySelectorAll(`input[name=${k}]:checked`)].map(x=>+x.value);
+    else base[k]=f.elements[k].value.trim();
+    ['ar','en'].forEach(l=>{const e=f.elements[k+'_'+l];if(e)base[k+'_'+l]=e.value.trim();});
+  });
+  if(T.when)Object.assign(base,readWhen(f));
+  return base;
+}
 
 function viewList(type){
-  const T=TYPES[type], it=(EDIT&&EDIT.type===type)?EDIT:{type};
+  const T=TYPES[type],it=(EDIT&&EDIT.type===type)?EDIT:{type};
   const list=by(type).slice().sort(T.sort||(()=>0));
   return `<form class="card" id="f">
     <h3>${it.id?'עריכת':'הוספת'} ${T.title}</h3>
@@ -240,34 +222,84 @@ function viewList(type){
   </div></div>`;
 }
 function bindList(type){
-  const T=TYPES[type], f=$('f');
-  if(T.when){syncWhen(f); f.addEventListener('change',()=>syncWhen(f));}
+  const T=TYPES[type],f=$('f');
+  if(T.when){syncWhen(f);f.addEventListener('change',()=>syncWhen(f));}
   f.onsubmit=e=>{e.preventDefault();
-    try{
-      const base=(EDIT&&EDIT.type===type)?Object.assign({},EDIT):{type};
-      T.fields.forEach(([k,,t])=>{
-        if(t==='check')base[k]=f.elements[k].checked;
-        else if(t==='days')base[k]=[...f.querySelectorAll(`input[name=${k}]:checked`)].map(x=>+x.value);
-        else base[k]=f.elements[k].value.trim();
-      });
-      if(T.when)Object.assign(base,readWhen(f));
-      delete base.updated; EDIT=null; save(base);
-    }catch(err){toast(err);}
+    try{const base=readFields(f,T,(EDIT&&EDIT.type===type)?Object.assign({},EDIT):{type});EDIT=null;save(base);}
+    catch(err){toast(err);}
   };
-  const c=$('cancel'); if(c)c.onclick=()=>{EDIT=null;render();};
+  const c=$('cancel');if(c)c.onclick=()=>{EDIT=null;render();};
   document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{EDIT=ITEMS.find(x=>x.id===b.dataset.edit);render();scrollTo(0,0);});
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('למחוק?'))del(b.dataset.del);});
+}
+
+/* ---------- תמונות ---------- */
+function viewImages(){
+  const T=TYPES.image,list=by('image').slice().reverse();
+  if(EDIT&&EDIT.type==='image')return `<form class="card" id="f"><h3>עריכת תמונה</h3><img src="${esc(W.imgSrc(EDIT.url))}" style="max-width:100%;border-radius:10px">
+    ${T.fields.map(f=>fieldHTML(f,EDIT)).join('')}${whenHTML(EDIT)}
+    <div class="row"><button class="btn" type="submit">שמירה</button><button class="btn sec" type="button" id="cancel">ביטול</button></div></form>`;
+  return `<div class="card"><h3>העלאת תמונות</h3>
+    <label class="drop" id="drop"><b>📷 בחרו תמונות (אפשר כמה ביחד)</b><span class="meta">התמונות מוקטנות אוטומטית ומוצגות במסך מלא בטלוויזיה</span>
+      <input type="file" id="files" accept="image/*" multiple hidden></label>
+    <form id="upf" data-rec="daily" data-valid="perm">${whenHTML({rec:'daily'})}</form>
+    <div id="upst" hidden><div class="meta" id="uptx"></div><div class="prog"><i id="upbar"></i></div></div>
+  </div>
+  <div class="card"><h3>התמונות (${list.length})</h3>
+    <div class="gal">${list.map(i=>`<div class="ph${activeOn(i,new Date())?'':' off'}"><img src="${esc(W.imgSrc(i.url))}" loading="lazy">
+      <div class="pb"><div class="meta">${esc(i.caption||'')} ${whenLabel(i)}</div>
+      <div class="row"><button class="btn sec sm" data-edit="${esc(i.id)}">עריכה</button><button class="btn no sm" data-delimg="${esc(i.id)}">מחיקה</button></div></div></div>`).join('')||'<div class="meta">עוד אין תמונות</div>'}</div>
+  </div>`;
+}
+function bindImages(){
+  if(EDIT&&EDIT.type==='image'){
+    const f=$('f');syncWhen(f);f.addEventListener('change',()=>syncWhen(f));
+    f.onsubmit=e=>{e.preventDefault();try{const it=readFields(f,TYPES.image,Object.assign({},EDIT));EDIT=null;save(it);}catch(err){toast(err);}};
+    $('cancel').onclick=()=>{EDIT=null;render();};return;
+  }
+  const upf=$('upf');syncWhen(upf);upf.addEventListener('change',()=>syncWhen(upf));
+  const drop=$('drop'),inp=$('files');
+  inp.onchange=()=>upload([...inp.files]);
+  ['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+  ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+  drop.addEventListener('drop',e=>upload([...e.dataTransfer.files].filter(f=>f.type.startsWith('image/'))));
+  document.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{EDIT=ITEMS.find(x=>x.id===b.dataset.edit);render();scrollTo(0,0);});
+  document.querySelectorAll('[data-delimg]').forEach(b=>b.onclick=()=>{
+    if(!confirm('למחוק את התמונה?'))return;
+    const it=ITEMS.find(x=>x.id===b.dataset.delimg);
+    run(async()=>{const r=await W.del(it.id,'מחיקת תמונה');await W.deleteFile(it.url);return r;},'התמונה נמחקה');
+  });
+}
+async function upload(files){
+  if(!files.length||BUSY)return;
+  let when;try{when=readWhen($('upf'));}catch(e){toast(e);return;}
+  BUSY=true;$('upst').hidden=false;
+  const done=[],fail=[];
+  for(let i=0;i<files.length;i++){
+    $('uptx').textContent=`מעלה ${i+1} מתוך ${files.length}…`;$('upbar').style.width=(i/files.length*100)+'%';
+    try{
+      const r=await W.resizeImage(files[i],DEMO?900:1920,DEMO?900:1080,DEMO?0.7:0.85);
+      const path=`images/${ymd(new Date())}-${uid()}.jpg`;
+      await W.uploadFile(path,r.base64,'העלאת תמונה');
+      done.push(Object.assign({type:'image',id:uid(),url:DEMO?r.dataUrl:path,caption:''},when));
+    }catch(e){fail.push(files[i].name);}
+  }
+  $('upbar').style.width='100%';$('uptx').textContent='שומר…';
+  try{if(done.length)ITEMS=await W.save(done,`הוספת ${done.length} תמונות`);
+    toast(`${done.length} תמונות נוספו ✓`+(fail.length?` · ${fail.length} נכשלו`:''));}
+  catch(e){toast('שגיאה: '+e+(DEMO?' (במצב הדגמה יש מקום רק לכמה תמונות)':''));}
+  BUSY=false;render();
 }
 
 /* ---------- נוכחות ---------- */
 let ATT_DATE=ymd(new Date());
 function viewAtt(){
-  const d=new Date(ATT_DATE+'T12:00'), dow=d.getDay();
+  const d=new Date(ATT_DATE+'T12:00'),dow=d.getDay();
   const staff=by('staff').filter(s=>s.active!==false).sort(TYPES.staff.sort);
   const att=by('attendance').filter(a=>a.date===ATT_DATE);
   const rows=staff.map(s=>{
-    const a=att.find(x=>x.staffId===s.id), reg=(s.days||[]).map(Number).includes(dow);
-    const present=a?a.status==='in':reg, from=(a&&a.from)||s.from||'', to=(a&&a.to)||s.to||'';
+    const a=att.find(x=>x.staffId===s.id),reg=(s.days||[]).map(Number).includes(dow);
+    const present=a?a.status==='in':reg,from=(a&&a.from)||s.from||'',to=(a&&a.to)||s.to||'';
     const src=a?'עודכן ידנית':(reg?'לפי ימים קבועים':'לא ביום קבוע');
     return `<div class="att ${present?'in':'out'}" data-sid="${esc(s.id)}">
       <div class="top"><div><b>${esc(s.name)}</b> <span class="meta">· ${esc(s.role)}</span></div><div class="meta">${present?'✔ נמצא/ת':'✖ לא נמצא/ת'} · ${src}</div></div>
@@ -277,66 +309,96 @@ function viewAtt(){
   const extra=att.filter(a=>!a.staffId);
   return `<div class="card"><h3>מי נמצא במחלקה</h3>
     <label>תאריך<input type="date" id="attDate" value="${ATT_DATE}"></label>
-    ${rows||'<div class="meta">עדיין אין אנשי צוות. הוסיפו אותם בלשונית "צוות".</div>'}</div>
-  <form class="card" id="fx"><h3>הוספת מישהו שלא ברשימה (מחליף, רופא תורן…)</h3>
+    ${rows||'<div class="meta">אין אנשי צוות קבועים. אפשר להוסיף בלשונית "צוות", או שהצוות יירשם בעצמו דרך קישור הנוכחות (בלשונית ⚙️ הגדרות).</div>'}</div>
+  <form class="card" id="fx"><h3>נרשמו דרך קישור הנוכחות / נוספו ידנית</h3>
+    <div class="items">${extra.map(a=>`<div class="item"><div class="tx"><b>${esc(a.name)}</b><div class="meta">${esc(a.role||'')} ${a.from?'· '+esc(a.from)+'–'+esc(a.to||''):''}</div></div><button class="btn no sm" type="button" data-del="${esc(a.id)}">מחיקה</button></div>`).join('')||'<div class="meta">אין</div>'}</div>
     <div class="grid2"><label>שם<input name="xname" required></label><label>תפקיד<select name="xrole">${ROLES.map(r=>`<option>${r}</option>`).join('')}</select></label>
     <label>משעה<input type="time" name="xfrom"></label><label>עד שעה<input type="time" name="xto"></label></div>
     <button class="btn" type="submit">הוספה ליום הזה</button>
-    <div class="items">${extra.map(a=>`<div class="item"><div class="tx"><b>${esc(a.name)}</b><div class="meta">${esc(a.role)} ${a.from?'· '+esc(a.from)+'–'+esc(a.to||''):''}</div></div><button class="btn no sm" type="button" data-del="${esc(a.id)}">מחיקה</button></div>`).join('')}</div>
   </form>`;
 }
 function bindAtt(){
   $('attDate').onchange=e=>{ATT_DATE=e.target.value||ymd(new Date());render();};
   document.querySelectorAll('.att').forEach(row=>{
-    const sid=row.dataset.sid, s=ITEMS.find(x=>x.id===sid), id=`att_${ATT_DATE}_${sid}`;
+    const sid=row.dataset.sid,s=ITEMS.find(x=>x.id===sid),id=`att_${ATT_DATE}_${sid}`;
     row.querySelectorAll('[data-st]').forEach(b=>b.onclick=()=>{
       const st=b.dataset.st;
       if(st==='reset')return del(id);
-      save({type:'attendance',id,staffId:sid,name:s.name,role:s.role,date:ATT_DATE,status:st,from:row.querySelector('[name=from]').value,to:row.querySelector('[name=to]').value});
+      save({type:'attendance',id,staffId:sid,name:s.name,role:s.role,date:ATT_DATE,status:st,from:row.querySelector('[name=from]').value,to:row.querySelector('[name=to]').value},'נוכחות');
     });
   });
   const fx=$('fx');
-  fx.onsubmit=e=>{e.preventDefault();const E=fx.elements;save({type:'attendance',id:uid(),date:ATT_DATE,status:'in',name:E.xname.value.trim(),role:E.xrole.value,from:E.xfrom.value,to:E.xto.value});};
+  fx.onsubmit=e=>{e.preventDefault();const E=fx.elements,nm=E.xname.value.trim();
+    save({type:'attendance',id:`att_${ATT_DATE}_n_${nm.replace(/\s+/g,'_')}`,date:ATT_DATE,status:'in',name:nm,role:E.xrole.value,from:E.xfrom.value,to:E.xto.value},'נוכחות');};
   fx.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('למחוק?'))del(b.dataset.del);});
 }
 
 /* ---------- הגדרות ---------- */
 const SFIELDS=[['wardName','שם המחלקה','text'],['phone','טלפון המחלקה','tel'],['headName','מנהל/ת המחלקה','text'],['secretaryName','שם המזכירה','text'],
-  ['visitMorning','שעות ביקור בוקר (למשל 10:00-12:00)','text'],['visitEvening','שעות ביקור ערב (למשל 16:00-19:00)','text'],
+  ['visitMorning','שעות ביקור בוקר (למשל 10:00-12:00)','time-range'],['visitEvening','שעות ביקור ערב (למשל 16:00-19:00)','time-range'],['visitNote','הערה לשעות הביקור (למשל: הביקורים בחדר האוכל)','text'],
   ['sleepStart','שעת "לילה טוב" (מסך לילה)','time'],['wakeTime','שעת השכמה (סוף מסך לילה)','time'],['nightMessage','הודעת לילה','textarea']];
-function viewSettings(){const s=settings();return `<form class="card" id="fs"><h3>פרטי המחלקה (קבוע)</h3>${SFIELDS.map(([k,l,t])=>fieldHTML([k,l,t],s)).join('')}<button class="btn" type="submit">שמירה</button></form>`;}
-function bindSettings(){const f=$('fs');f.onsubmit=e=>{e.preventDefault();const s=Object.assign({},settings(),{type:'settings',id:'settings'});SFIELDS.forEach(([k])=>s[k]=f.elements[k].value.trim());delete s.updated;save(s);};}
+function checkinLink(withCode){
+  const base=location.href.replace(/admin\.html.*$/,'checkin.html').replace(/[?#].*$/,'');
+  return withCode&&PIN?`${base}#k=${encodeURIComponent(PIN)}`:base;
+}
+const LANG_NAMES={he:'עברית',ar:'العربية – ערבית',en:'English – אנגלית'};
+function viewSettings(){
+  const s=settings(),sc=Array.isArray(s.scenes)?s.scenes:Object.keys(SCENE_NAMES),lg=Array.isArray(s.langs)&&s.langs.length?s.langs:['he','ar','en'];
+  return `<form class="card" id="fs"><h3>🌐 שפות המסך</h3>
+    <div class="meta">המסך מתחלף בין השפות שנבחרו. כל הכותרות מתורגמות אוטומטית; טקסט שכתבתם בלי תרגום יוצג בעברית.</div>
+    <div class="seg">${Object.entries(LANG_NAMES).map(([k,l])=>`<label><input type="checkbox" name="lang" value="${k}" ${lg.includes(k)?'checked':''}>${l}</label>`).join('')}</div>
+    <h3 style="margin-top:6px">פרטי המחלקה (קבוע)</h3>${SFIELDS.map(([k,l,t])=>fieldHTML([k,l,t==='time-range'?'text':t],s)).join('')}
+    <h3 style="margin-top:6px">תצוגות שמתחלפות בטלוויזיה</h3>
+    <div class="meta">המסך הראשי (סדר יום) מוצג תמיד, וביניהם מתחלפות התצוגות שבחרתם. תצוגה בלי תוכן מדולגת אוטומטית.</div>
+    <div class="items">${Object.entries(SCENE_NAMES).map(([k,l])=>`<label class="check"><input type="checkbox" name="scene" value="${k}" ${sc.includes(k)?'checked':''}>${l}</label>`).join('')}</div>
+    <button class="btn" type="submit">שמירה</button></form>
+  <div class="card"><h3>🔗 קישור נוכחות לצוות</h3>
+    <div class="meta">קישור אחד שכל עובד פותח בטלפון, כותב את שמו ומאיזו שעה עד איזו שעה הוא במחלקה – וזה מופיע בטלוויזיה.</div>
+    <div class="linkbox" id="lnk">${esc(checkinLink(true))}</div>
+    <div class="row"><button class="btn" id="cp1">העתקת קישור (בלי צורך בקוד)</button><button class="btn sec" id="cp2">העתקת קישור שמבקש קוד</button></div>
+    <div class="meta">⚠️ מי שמחזיק בקישור "בלי צורך בקוד" יכול לעדכן את המסך. שלחו אותו רק בקבוצת הצוות.</div>
+  </div>`;
+}
+function bindSettings(){
+  const f=$('fs');
+  f.onsubmit=e=>{e.preventDefault();const s=Object.assign({},settings(),{type:'settings',id:'settings'});
+    SFIELDS.forEach(([k])=>{s[k]=f.elements[k].value.trim();['ar','en'].forEach(l=>{const e=f.elements[k+'_'+l];if(e)s[k+'_'+l]=e.value.trim();});});
+    s.langs=[...f.querySelectorAll('input[name=lang]:checked')].map(x=>x.value);if(!s.langs.length)s.langs=['he'];
+    s.scenes=[...f.querySelectorAll('input[name=scene]:checked')].map(x=>x.value);
+    save(s,'הגדרות');};
+  const cp=t=>{(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('הקישור הועתק ✓'),()=>prompt('העתיקו את הקישור:',t));};
+  $('cp1').onclick=()=>cp(checkinLink(true));
+  $('cp2').onclick=()=>cp(checkinLink(false));
+}
 
 /* ---------- ניווט ---------- */
-const TABS=[['att','👥 נוכחות היום'],['schedule','📋 סדר יום'],['message','📣 הודעות'],['staff','🧑‍⚕️ צוות'],['quote','🌿 משפטים'],['image','🖼️ תמונות'],['settings','⚙️ הגדרות']];
+const TABS=[['att','👥 נוכחות היום'],['schedule','📋 סדר יום'],['message','📣 הודעות'],['image','🖼️ תמונות'],['staff','🧑‍⚕️ צוות'],['quote','🌿 משפטים'],['settings','⚙️ הגדרות']];
 function render(){
   $('tabs').innerHTML=TABS.map(([k,l])=>`<button class="${k===TAB?'on':''}" data-tab="${k}">${l}</button>`).join('');
   document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;EDIT=null;render();});
   const banner=DEMO?'<div class="banner">מצב הדגמה: הנתונים נשמרים רק בדפדפן הזה. כדי שיגיעו לטלוויזיה צריך להריץ את setup.html ולהדביק את התוצאה ב-config.js.</div>':'';
   if(TAB==='att'){$('view').innerHTML=banner+viewAtt();bindAtt();}
   else if(TAB==='settings'){$('view').innerHTML=banner+viewSettings();bindSettings();}
+  else if(TAB==='image'){$('view').innerHTML=banner+viewImages();bindImages();}
   else{$('view').innerHTML=banner+viewList(TAB);bindList(TAB);}
 }
 
 async function enter(){
-  WHO=$('who').value.trim(); PIN=$('pin').value.trim();
+  WHO=$('who').value.trim();PIN=$('pin').value.trim();
   if(!WHO){$('lerr').textContent='נא לכתוב שם';return;}
   $('lerr').textContent='בודק…';
   try{
-    if(!DEMO){
-      if(!CFG.OWNER||!CFG.REPO)throw 'חסרים OWNER / REPO בקובץ config.js';
-      try{TOKEN=await decryptToken(CFG.TOKEN_ENC,PIN);}catch(_){throw 'קוד שגוי';}
-    }
-    ss.set('who',WHO); ss.set('pin',PIN);
-    await load();
-    $('login').hidden=true; $('app').hidden=false; $('mode').textContent=DEMO?'הדגמה':'מחובר · '+WHO;
+    await W.unlock(PIN);W.setWho(WHO);
+    ss.set('who',WHO);ss.set('pin',PIN);
+    ITEMS=await W.load();
+    $('login').hidden=true;$('app').hidden=false;$('mode').textContent=DEMO?'הדגמה':'מחובר · '+WHO;
     render();
   }catch(e){$('lerr').textContent=String(e);}
 }
 $('enter').onclick=enter;
 $('pin').onkeydown=e=>{if(e.key==='Enter')enter();};
 if(ss.get('who')){$('who').value=ss.get('who');$('pin').value=ss.get('pin')||'';enter();}
-setInterval(()=>{if(!$('app').hidden&&!EDIT&&TAB==='att')load().then(render).catch(()=>{});},120000);
+setInterval(()=>{if(!$('app').hidden&&!EDIT&&!BUSY&&TAB==='att')W.load().then(x=>{ITEMS=x;render();}).catch(()=>{});},120000);
 </script>
 </body>
 </html>
