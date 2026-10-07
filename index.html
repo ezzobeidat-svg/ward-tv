@@ -45,7 +45,7 @@ body{background:var(--paper);color:var(--ink);font-family:Rubik,Arial,sans-serif
 .dates .sub{opacity:.8;font-size:calc(var(--u)*1.45)}
 .arc{margin-top:auto;width:100%}
 .arc svg{width:100%;height:auto;display:block;overflow:visible}
-.arc .ends{display:flex;justify-content:space-between;font-size:calc(var(--u)*1.3);opacity:.75;margin-top:calc(var(--u)*.4)}
+.arc .ends{display:flex;justify-content:space-between;gap:calc(var(--u)*1);font-size:calc(var(--u)*1.3);opacity:.75;margin-top:calc(var(--u)*.4)}
 .skyfoot{display:flex;flex-direction:column;align-items:flex-start;gap:calc(var(--u)*.8);margin-top:calc(var(--u)*1.4);font-size:calc(var(--u)*1.5)}
 .wx{font-size:calc(var(--u)*2.4);font-weight:500}
 .shab{line-height:1.45;opacity:.92;white-space:nowrap;font-size:calc(var(--u)*1.35)}
@@ -70,7 +70,7 @@ body{background:var(--paper);color:var(--ink);font-family:Rubik,Arial,sans-serif
 .nowcard .main{display:flex;align-items:center;gap:calc(var(--u)*1.6);margin-top:calc(var(--u)*.6);min-width:0}
 .nowcard .main>div:last-child{min-width:0}
 .nowcard .ic{font-size:calc(var(--u)*5.4);line-height:1}
-.nowcard .tt{font-size:calc(var(--u)*4);font-weight:600;line-height:1.12;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nowcard .tt{font-size:calc(var(--u)*3.5);font-weight:600;line-height:1.12;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .nowcard .tm{font-size:calc(var(--u)*2.1);color:var(--muted);margin-top:calc(var(--u)*.3)}
 .nowcard .prog{height:calc(var(--u)*.5);background:var(--line);border-radius:1vh;margin-top:calc(var(--u)*.9);overflow:hidden}
 .nowcard .prog i{display:block;height:100%;background:var(--c);border-radius:1vh;transition:width 2s}
@@ -95,19 +95,32 @@ body{background:var(--paper);color:var(--ink);font-family:Rubik,Arial,sans-serif
 .sched{background:var(--panel);border-radius:calc(var(--u)*1.8);padding:calc(var(--u)*1.4) calc(var(--u)*1.8);flex:1;min-height:0;display:flex;flex-direction:column}
 .h{font-size:calc(var(--u)*2.6);font-weight:600;color:var(--ink);margin-bottom:calc(var(--u)*.8);display:flex;align-items:baseline;gap:calc(var(--u)*1)}
 .rows{flex:1;min-height:0;overflow:hidden;position:relative}
-.r{--c:var(--other);display:grid;grid-template-columns:calc(var(--u)*7.6) calc(var(--u)*1.3) minmax(0,1fr) auto;align-items:center;gap:calc(var(--u)*1);padding:calc(var(--u)*.85) calc(var(--u)*1);border-bottom:1px solid var(--line);font-size:calc(var(--u)*2.45);border-radius:calc(var(--u)*.9)}
-.r:last-child{border-bottom:0}
-.r .t{font-weight:600}
-.r .t small{display:none;font-size:calc(var(--u)*1.1);line-height:1.1;font-weight:400;color:var(--muted)}
-.r .dot{width:calc(var(--u)*1.1);height:calc(var(--u)*1.1);border-radius:50%;background:var(--c);justify-self:center}
-.r .ti{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r{--c:var(--other);display:grid;grid-template-columns:calc(var(--u)*7.2) calc(var(--u)*3.2) minmax(0,1fr);align-items:stretch}
+.r .t{align-self:center;font-size:calc(var(--u)*2.3);font-weight:600;text-align:center}
+.r .rail{position:relative}
+.r .rail::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:calc(var(--u)*.3);margin-left:calc(var(--u)*-.15);background:var(--line)}
+.r:first-child .rail::before{top:50%}
+.r.lastvis .rail::before{bottom:50%}
+.r .rail i{position:absolute;top:50%;left:50%;width:calc(var(--u)*1.5);height:calc(var(--u)*1.5);margin:calc(var(--u)*-.75) 0 0 calc(var(--u)*-.75);border-radius:50%;background:#fff;border:calc(var(--u)*.3) solid var(--c);box-sizing:border-box}
+.r .it{display:flex;align-items:center;gap:calc(var(--u)*1.1);padding:calc(var(--u)*.7) calc(var(--u)*1.1);margin-block:calc(var(--u)*.3);border-radius:calc(var(--u)*1.3);min-width:0}
+.r .ic{flex:none;width:calc(var(--u)*3.6);height:calc(var(--u)*3.6);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:calc(var(--u)*1.9);background:color-mix(in srgb,var(--c) 13%,#fff)}
+.r .tx{min-width:0;flex:1}
+.r .ti{font-size:calc(var(--u)*2.2);font-weight:500;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .r.key .ti{font-weight:600}
-.r .b{font-size:calc(var(--u)*1.3);font-weight:600;color:var(--muted)}
-.r.past{opacity:.38}
+.r .sub{font-size:calc(var(--u)*1.35);color:var(--muted);margin-top:calc(var(--u)*.2)}
+.r .bar{height:calc(var(--u)*.4);background:rgba(227,155,45,.2);border-radius:1vh;margin-top:calc(var(--u)*.6);overflow:hidden}
+.r .bar i{display:block;height:100%;background:var(--amber);border-radius:1vh}
+.r .b{flex:none;font-size:calc(var(--u)*1.45);font-weight:600;padding:calc(var(--u)*.35) calc(var(--u)*1);border-radius:3vh;color:var(--c);background:color-mix(in srgb,var(--c) 12%,#fff);white-space:nowrap}
+.r.past{opacity:.4}
+.r.past .rail i{background:var(--line);border-color:var(--line)}
 .r.off,.p.hide{display:none}
-.r.now{background:var(--amber-soft);border-bottom-color:transparent}
-.r.now .t small{display:block}
-.r.now .b{color:#fff;background:var(--amber);padding:.3vh calc(var(--u)*.9);border-radius:3vh}
+.r.now .it{background:var(--amber-soft);box-shadow:inset 0 0 0 calc(var(--u)*.15) rgba(227,155,45,.45);padding-block:calc(var(--u)*1.1)}
+.r.now .ti{font-size:calc(var(--u)*2.6);font-weight:600}
+.r.now .ic{width:calc(var(--u)*4.4);height:calc(var(--u)*4.4);font-size:calc(var(--u)*2.4)}
+.r.now .t{font-size:calc(var(--u)*2.6)}
+.r.now .rail i{width:calc(var(--u)*2.2);height:calc(var(--u)*2.2);margin:calc(var(--u)*-1.1) 0 0 calc(var(--u)*-1.1);background:var(--amber);border-color:#fff;box-shadow:0 0 0 calc(var(--u)*.35) rgba(227,155,45,.35);animation:node 2.8s ease-in-out infinite}
+@keyframes node{50%{box-shadow:0 0 0 calc(var(--u)*.9) rgba(227,155,45,0)}}
+.r.now .b{color:#fff;background:var(--amber)}
 .empty{color:var(--muted);margin:auto;text-align:center;font-size:calc(var(--u)*1.7)}
 
 /* ===== עמודת צד ===== */
@@ -393,7 +406,7 @@ function derive(now){
     if(a){present=a.status==='in';if(a.from)from=a.from;if(a.to)to=a.to;}
     return Object.assign({},s,{present,from,to});
   }).filter(s=>s.present);
-  att.filter(a=>!a.staffId&&a.status==='in').forEach(a=>staff.push({name:a.name,role:a.role,from:a.from,to:a.to}));
+  att.filter(a=>!a.staffId&&a.status==='in').forEach(a=>staff.push({name:a.name,name_ar:a.name_ar,name_en:a.name_en,role:a.role,from:a.from,to:a.to}));
   staff=staff.filter(s=>{const f=toMin(s.from),e=toMin(s.to);if(f==null||e==null||e<=f)return true;return m<e;});
   let sched=by('schedule').filter(i=>activeOn(i,now));
   const vis=(v,key)=>{if(!v)return;const[a,b]=String(v).split(/[-–]/).map(x=>x.trim());if(toMin(a)!=null)sched.push({time:a,endTime:b,title:t(key),cat:'visit'});};
@@ -458,6 +471,8 @@ function renderNow(){
   else nx=`<div class="nextline"><span class="k">${t('next')}</span><span class="v">🌙 ${t('done')}</span></div>`;
   const html=`<div class="lab"><i></i>${t('now')}</div>${main}${nx}`;
   if(el.dataset.sig!==html){el.dataset.sig=html;el.innerHTML=html;}
+  // מקטין את שם הפעילות אם הוא לא נכנס
+  const tt=el.querySelector('.tt');if(tt){let fs=3.5;tt.style.fontSize='';while((tt.scrollWidth>tt.clientWidth+1||tt.scrollHeight>tt.clientHeight+2)&&fs>2){fs-=.1;tt.style.fontSize=`calc(var(--u)*${fs.toFixed(1)})`;}}
 }
 
 /* ---------- הארוחה הבאה / התרופות הבאות ---------- */
@@ -485,7 +500,9 @@ function renderSched(){
     if(r.e<=m)cls+=' past';
     if(idx===D.cur){cls+=' now';b=t('now');}
     else if(idx===D.next){const d=r.s-m;if(d<=120)b=inMins(d);}
-    return `<div class="${cls}" style="--c:${col(r)}"><div class="t num">${esc(r.time)}${r.endTime?`<small>${t('until')} ${esc(r.endTime)}</small>`:''}</div><div class="dot"></div><div class="ti">${icon(r)} ${title(r)}</div><div class="b">${b}</div></div>`;
+    const now=idx===D.cur;
+    const sub=now&&r.endTime?`<div class="sub">${t('until')} <span class="num">${esc(r.endTime)}</span></div><div class="bar"><i style="width:${Math.min(100,Math.round((m-r.s)/Math.max(1,r.e-r.s)*100))}%"></i></div>`:'';
+    return `<div class="${cls}" style="--c:${col(r)}"><div class="t num">${esc(r.time)}</div><div class="rail"><i></i></div><div class="it"><span class="ic">${icon(r)}</span><div class="tx"><div class="ti">${title(r)}</div>${sub}</div>${b?`<span class="b">${b}</span>`:''}</div></div>`;
   }).join('');
   if(box.dataset.sig!==html){box.dataset.sig=html;box.innerHTML=html;}
   fitRows();
@@ -493,7 +510,9 @@ function renderSched(){
 function fitRows(){
   const box=$('rows'),all=[...box.querySelectorAll('.r')];all.forEach(r=>r.classList.remove('off'));
   const H=box.clientHeight;
+  all.forEach(r=>r.classList.remove('lastvis'));
   for(let i=all.length-1;i>1&&all[i].offsetTop+all[i].offsetHeight>H+1;i--)all[i].classList.add('off');
+  const vis=all.filter(r=>!r.classList.contains('off'));if(vis.length&&vis.length===all.length)vis[vis.length-1].classList.add('lastvis');
 }
 
 /* ---------- הצוות ---------- */

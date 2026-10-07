@@ -61,6 +61,7 @@ input,select{border:1px solid var(--line);border-radius:12px;padding:13px 12px;f
   <form class="card" id="f" hidden>
     <label>השם שלך (כפי שיופיע בטלוויזיה)<input id="name" list="names" autocomplete="name" required></label>
     <datalist id="names"></datalist>
+    <div class="grid2" id="trn"><label>🌐 الاسم بالعربية (לא חובה)<input id="name_ar" dir="rtl"></label><label>🌐 Name in English (לא חובה)<input id="name_en" dir="ltr"></label></div>
     <label>תפקיד<select id="role"></select></label>
     <label>תאריך<input type="date" id="date"></label>
     <div class="shifts" id="shifts"></div>
@@ -98,7 +99,7 @@ $('date').onchange=renderList;
 const staffList=()=>ITEMS.filter(i=>i.type==='staff'&&i.active!==false);
 const findStaff=n=>staffList().find(s=>norm(s.name)===norm(n));
 $('name').addEventListener('change',()=>{
-  const s=findStaff($('name').value);
+  const s=findStaff($('name').value);$('trn').style.display=s?'none':'';
   if(s){$('role').value=ROLES.includes(s.role)?s.role:'אחר';if(s.from&&!$('from').value){$('from').value=s.from;$('to').value=s.to||'';markShift();}}
 });
 
@@ -133,9 +134,9 @@ async function act(fn,ic,tx){
 function entry(status){
   const name=norm($('name').value),date=$('date').value||ymd(new Date());
   if(!name)throw 'נא לכתוב שם';
-  ls.set('ci-name',name);ls.set('ci-role',$('role').value);W.setWho(name);
+  ls.set('ci-name',name);ls.set('ci-role',$('role').value);ls.set('ci-name-ar',$('name_ar').value.trim());ls.set('ci-name-en',$('name_en').value.trim());W.setWho(name);
   const s=findStaff(name);
-  const base={type:'attendance',date,status,name,role:$('role').value,from:$('from').value,to:$('to').value};
+  const base={type:'attendance',date,status,name,name_ar:$('name_ar').value.trim(),name_en:$('name_en').value.trim(),role:$('role').value,from:$('from').value,to:$('to').value};
   if(s)return Object.assign(base,{id:`att_${date}_${s.id}`,staffId:s.id,name:s.name});
   return Object.assign(base,{id:`att_${date}_n_${name.replace(/\s+/g,'_')}`});
 }
@@ -155,7 +156,7 @@ async function openApp(code){
   ITEMS=await W.load();
   const st=ITEMS.find(i=>i.type==='settings');if(st&&st.wardName)$('ward').textContent=st.wardName;
   $('names').innerHTML=staffList().map(s=>`<option value="${esc(s.name)}">`).join('');
-  $('name').value=ls.get('ci-name')||'';
+  $('name').value=ls.get('ci-name')||'';$('name_ar').value=ls.get('ci-name-ar')||'';$('name_en').value=ls.get('ci-name-en')||'';
   if(ls.get('ci-role'))$('role').value=ls.get('ci-role');
   $('name').dispatchEvent(new Event('change'));
   $('lock').hidden=true;$('f').hidden=false;$('today').hidden=false;

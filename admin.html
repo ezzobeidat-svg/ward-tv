@@ -313,6 +313,7 @@ function viewAtt(){
   <form class="card" id="fx"><h3>נרשמו דרך קישור הנוכחות / נוספו ידנית</h3>
     <div class="items">${extra.map(a=>`<div class="item"><div class="tx"><b>${esc(a.name)}</b><div class="meta">${esc(a.role||'')} ${a.from?'· '+esc(a.from)+'–'+esc(a.to||''):''}</div></div><button class="btn no sm" type="button" data-del="${esc(a.id)}">מחיקה</button></div>`).join('')||'<div class="meta">אין</div>'}</div>
     <div class="grid2"><label>שם<input name="xname" required></label><label>תפקיד<select name="xrole">${ROLES.map(r=>`<option>${r}</option>`).join('')}</select></label>
+    <label>🌐 بالعربية (לא חובה)<input name="xname_ar" dir="rtl"></label><label>🌐 In English (לא חובה)<input name="xname_en" dir="ltr"></label>
     <label>משעה<input type="time" name="xfrom"></label><label>עד שעה<input type="time" name="xto"></label></div>
     <button class="btn" type="submit">הוספה ליום הזה</button>
   </form>`;
@@ -329,7 +330,7 @@ function bindAtt(){
   });
   const fx=$('fx');
   fx.onsubmit=e=>{e.preventDefault();const E=fx.elements,nm=E.xname.value.trim();
-    save({type:'attendance',id:`att_${ATT_DATE}_n_${nm.replace(/\s+/g,'_')}`,date:ATT_DATE,status:'in',name:nm,role:E.xrole.value,from:E.xfrom.value,to:E.xto.value},'נוכחות');};
+    save({type:'attendance',id:`att_${ATT_DATE}_n_${nm.replace(/\s+/g,'_')}`,date:ATT_DATE,status:'in',name:nm,name_ar:E.xname_ar.value.trim(),name_en:E.xname_en.value.trim(),role:E.xrole.value,from:E.xfrom.value,to:E.xto.value},'נוכחות');};
   fx.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{if(confirm('למחוק?'))del(b.dataset.del);});
 }
 
@@ -348,9 +349,6 @@ function viewSettings(){
     <div class="meta">המסך מתחלף בין השפות שנבחרו. כל הכותרות מתורגמות אוטומטית; טקסט שכתבתם בלי תרגום יוצג בעברית.</div>
     <div class="seg">${Object.entries(LANG_NAMES).map(([k,l])=>`<label><input type="checkbox" name="lang" value="${k}" ${lg.includes(k)?'checked':''}>${l}</label>`).join('')}</div>
     <h3 style="margin-top:6px">פרטי המחלקה (קבוע)</h3>${SFIELDS.map(([k,l,t])=>fieldHTML([k,l,t==='time-range'?'text':t],s)).join('')}
-    <h3 style="margin-top:6px">תצוגות שמתחלפות בטלוויזיה</h3>
-    <div class="meta">המסך הראשי (סדר יום) מוצג תמיד, וביניהם מתחלפות התצוגות שבחרתם. תצוגה בלי תוכן מדולגת אוטומטית.</div>
-    <div class="items">${Object.entries(SCENE_NAMES).map(([k,l])=>`<label class="check"><input type="checkbox" name="scene" value="${k}" ${sc.includes(k)?'checked':''}>${l}</label>`).join('')}</div>
     <button class="btn" type="submit">שמירה</button></form>
   <div class="card"><h3>🔗 קישור נוכחות לצוות</h3>
     <div class="meta">קישור אחד שכל עובד פותח בטלפון, כותב את שמו ומאיזו שעה עד איזו שעה הוא במחלקה – וזה מופיע בטלוויזיה.</div>
