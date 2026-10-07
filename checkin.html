@@ -3,43 +3,52 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#1d6a9e">
+<meta name="theme-color" content="#1F6B5C">
 <title>רישום נוכחות</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="gh.js"></script>
 <style>
-:root{--ink:#15314a;--muted:#5d7387;--brand:#1d6a9e;--line:#d6e2ec;--ok:#2a9d8f;--no:#d1495b}
+/* מערכת עיצוב: לוח המחלקה */
+:root{--paper:#EEF3F1;--panel:#FFFFFF;--line:#DCE6E2;--line-strong:#7A8F8A;--ink:#16302C;--muted:#5D726E;--faint:#9AAEA9;
+  --brand:#1F6B5C;--on-brand:#FFFFFF;--brand-soft:#E2F0EB;--deep:#16302C;--on-deep:#FFFFFF;
+  --now:#E39B2D;--on-now:#16302C;--now-soft:#FFF4E2;--now-ink:#9A5B00;
+  --danger:#B23A48;--on-danger:#FFFFFF;--danger-soft:#FBEFF1;--calm-ink:#2C5A4E;--calm-soft:#E4F0EA;
+  --ring:0 0 0 3px #1F6B5C;--shadow-card:0 2px 10px rgba(22,48,44,.06);--shadow-hero:0 6px 18px rgba(22,48,44,.22);
+  --sans:Rubik,'Noto Sans Arabic',Arial,sans-serif;--ok:var(--brand);--no:var(--danger)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Heebo,Arial,sans-serif;color:var(--ink);min-height:100vh;background:linear-gradient(160deg,#e3f0f9,#eef7f2);line-height:1.45}
+body{font-family:var(--sans);color:var(--ink);min-height:100vh;background:var(--paper);line-height:1.45;-webkit-font-smoothing:antialiased}
+.num,.hero .clk,input[type=time],input[type=date]{font-variant-numeric:tabular-nums}
+:focus-visible{outline:none;box-shadow:var(--ring)}
 button,input,select{font:inherit}
 .wrap{max-width:460px;margin:0 auto;padding:18px 14px 40px;display:flex;flex-direction:column;gap:14px}
-.hero{background:linear-gradient(110deg,#1d6a9e,#0f4c78);color:#fff;border-radius:18px;padding:18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 6px 18px rgba(15,76,120,.25)}
-.hero h1{font-size:21px}
+.hero{background:linear-gradient(110deg,#1F6B5C,#16302C);color:#fff;border-radius:18px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-hero)}
+.hero h1{font-size:22px;line-height:28px;font-weight:700}
 .hero .sub{opacity:.85;font-size:14px}
-.hero .clk{font-size:30px;font-weight:800;direction:ltr}
-.card{background:#fff;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.hero .clk{font-size:32px;font-weight:600;direction:ltr;letter-spacing:-.02em}
+.card{background:var(--panel);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow-card)}
 label{display:flex;flex-direction:column;gap:5px;font-size:14px;color:var(--muted);font-weight:500}
-input,select{border:1px solid var(--line);border-radius:12px;padding:13px 12px;font-size:17px;color:var(--ink);background:#fff;width:100%}
+input,select{border:1px solid var(--line-strong);border-radius:10px;padding:12px;font-size:17px;line-height:24px;color:var(--ink);background:var(--panel);width:100%}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .shifts{display:flex;gap:6px;flex-wrap:wrap}
-.shifts button{flex:1;border:1px solid var(--line);background:#f3f8fb;border-radius:12px;padding:9px 4px;cursor:pointer;color:var(--ink);font-size:14px;line-height:1.2}
-.shifts button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-.shifts small{display:block;opacity:.75;font-size:12px;direction:ltr}
-.btn{border:0;border-radius:14px;padding:15px;font-size:18px;font-weight:800;color:#fff;background:var(--ok);cursor:pointer;width:100%}
-.btn.no{background:#fff;color:var(--no);border:2px solid #f2c5cc;font-size:16px;padding:11px}
+.shifts button{flex:1;border:1px solid var(--line-strong);background:var(--panel);border-radius:10px;padding:9px 4px;cursor:pointer;color:var(--ink);font-size:15px;font-weight:500;line-height:1.2}
+.shifts button.on{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.shifts small{display:block;color:var(--muted);font-size:12px;direction:ltr;margin-top:2px}
+.shifts button.on small{color:var(--on-brand);opacity:.85}
+.btn{border:0;border-radius:14px;padding:15px;font-size:18px;line-height:24px;font-weight:700;color:var(--on-brand);background:var(--brand);cursor:pointer;width:100%}
+.btn.no{background:var(--panel);color:var(--danger);border:1.5px solid var(--danger);font-size:16px;font-weight:600;padding:11px}
 .btn:disabled{opacity:.55}
 .err{color:var(--no);font-size:14px;min-height:18px}
 .list{display:flex;flex-direction:column;gap:8px}
-.p{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:#f3f8fb}
-.p.me{background:#e4f5f1}
-.av{width:38px;height:38px;border-radius:50%;color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.p{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:14px;background:var(--paper)}
+.p.me{background:var(--brand-soft)}
+.av{width:38px;height:38px;border-radius:50%;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none}
 .p .tx{flex:1;min-width:0}
-.p .tx b{display:block}
+.p .tx b{display:block;font-weight:500}
 .p .tx span{font-size:13px;color:var(--muted)}
-.p button{border:0;background:none;color:var(--no);font-size:13px;cursor:pointer}
+.p button{border:0;background:none;color:var(--danger);font-size:13px;font-weight:500;cursor:pointer}
 .meta{font-size:13px;color:var(--muted)}
-.done{position:fixed;inset:0;background:rgba(21,49,74,.55);display:flex;align-items:center;justify-content:center;z-index:9;opacity:0;pointer-events:none;transition:.3s}
+.done{position:fixed;inset:0;background:rgba(22,48,44,.55);display:flex;align-items:center;justify-content:center;z-index:9;opacity:0;pointer-events:none;transition:.3s}
 .done.on{opacity:1;pointer-events:auto}
 .done div{background:#fff;border-radius:22px;padding:28px 30px;text-align:center;transform:scale(.8);transition:.35s cubic-bezier(.2,1.4,.4,1)}
 .done.on div{transform:none}
@@ -54,7 +63,7 @@ input,select{border:1px solid var(--line);border-radius:12px;padding:13px 12px;f
 
   <div class="card" id="lock" hidden>
     <label>קוד צוות<input id="code" type="password" autocomplete="current-password"></label>
-    <button class="btn" id="unlock" style="background:var(--brand)">כניסה</button>
+    <button class="btn" id="unlock">כניסה</button>
     <div class="err" id="lerr"></div>
   </div>
 
@@ -119,7 +128,7 @@ function renderList(){
   const date=$('date').value||ymd(new Date()),me=norm(ls.get('ci-name'));
   const p=present(date);
   $('ttl').textContent=date===ymd(new Date())?`מי במחלקה היום (${p.length})`:`רשומים ל-${date.split('-').reverse().join('/')} (${p.length})`;
-  $('list').innerHTML=p.map(x=>`<div class="p${norm(x.name)===me?' me':''}"><div class="av" style="background:hsl(${hue(x.name)},55%,48%)">${esc(norm(x.name).replace(/^(ד["״]ר)\s*/,'').charAt(0))}</div>
+  $('list').innerHTML=p.map(x=>`<div class="p${norm(x.name)===me?' me':''}"><div class="av" style="color:hsl(${hue(x.name)},45%,28%);background:hsl(${hue(x.name)},55%,88%)">${esc(norm(x.name).replace(/^(ד["״]ר)\s*/,'').charAt(0))}</div>
     <div class="tx"><b>${esc(x.name)}</b><span>${esc(x.role||'')}${x.from?' · '+esc(x.from)+'–'+esc(x.to||''):''}</span></div>
     ${x.id&&norm(x.name)===me?`<button data-del="${esc(x.id)}">ביטול</button>`:''}</div>`).join('')||'<div class="meta">עוד אף אחד לא נרשם</div>';
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>act(()=>W.del(b.dataset.del,'ביטול נוכחות'),'🗑️','הרישום בוטל'));
