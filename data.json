@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:27:31.535Z",
+ "updated": "2026-10-08T13:28:04.464Z",
  "items": [
   {
    "type": "settings",
@@ -62,8 +62,10 @@
    "days": [],
    "start": "",
    "end": "",
-   "by": "ezz",
-   "updated": "2026-10-06T19:20:30.741Z"
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:28:04.058Z",
+   "title_ar": "وجبة الفطور",
+   "title_en": "breakfast"
   },
   {
    "type": "schedule",
