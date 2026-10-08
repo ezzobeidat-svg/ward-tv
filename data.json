@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:34:33.561Z",
+ "updated": "2026-10-08T13:38:18.081Z",
  "items": [
   {
    "type": "settings",
@@ -204,6 +204,22 @@
    "to": "16:00",
    "by": "ezz",
    "updated": "2026-10-06T19:23:55.959Z"
+  },
+  {
+   "type": "message",
+   "text": "כל יום הוא התחלה חדשה",
+   "text_ar": "كل يوم هو بداية جديدة",
+   "text_en": "Every day is a new beginning",
+   "important": false,
+   "rec": "weekly",
+   "days": [
+    0
+   ],
+   "start": "",
+   "end": "",
+   "id": "0mnhyasm5",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:38:17.645Z"
   }
  ]
 }
