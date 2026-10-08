@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:43:24.797Z",
+ "updated": "2026-10-08T13:43:49.378Z",
  "items": [
   {
    "type": "settings",
@@ -162,21 +162,15 @@
    "type": "staff",
    "name": "עז אלדין עבידאת",
    "role": "אח/ות",
-   "days": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-   ],
-   "from": "20:00",
-   "to": "16:00",
-   "active": true,
+   "days": [],
+   "from": "00:00",
+   "to": "00:00",
+   "active": false,
    "id": "komtgmp3",
-   "by": "ezz",
-   "updated": "2026-10-06T19:19:17.530Z"
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:43:48.956Z",
+   "name_ar": "",
+   "name_en": ""
   },
   {
    "type": "message",
