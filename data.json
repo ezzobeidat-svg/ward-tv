@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:43:07.794Z",
+ "updated": "2026-10-08T13:43:12.594Z",
  "items": [
   {
    "type": "settings",
@@ -312,19 +312,6 @@
    "id": "6iwkdnoot",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:42:52.724Z"
-  },
-  {
-   "type": "attendance",
-   "id": "att_2026-10-08_komtgmp3",
-   "staffId": "komtgmp3",
-   "name": "עז אלדין עבידאת",
-   "role": "אח/ות",
-   "date": "2026-10-08",
-   "status": "in",
-   "from": "20:00",
-   "to": "16:00",
-   "by": "Ezz Obedat",
-   "updated": "2026-10-08T13:43:07.395Z"
   }
  ]
 }
