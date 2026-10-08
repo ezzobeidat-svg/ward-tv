@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:29:37.290Z",
+ "updated": "2026-10-08T13:30:09.823Z",
  "items": [
   {
    "type": "settings",
@@ -125,7 +125,15 @@
    "title": "ארוחת ערב",
    "cat": "meal",
    "rec": "daily",
-   "endTime": "18:45"
+   "endTime": "18:45",
+   "title_ar": "وجبة العشاء",
+   "title_en": "dinner",
+   "icon": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:30:09.363Z"
   },
   {
    "type": "schedule",
