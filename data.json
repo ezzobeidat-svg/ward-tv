@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:53:11.300Z",
+ "updated": "2026-10-08T13:53:20.757Z",
  "items": [
   {
    "type": "settings",
@@ -259,22 +259,6 @@
    "id": "5ufdcc28t",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:42:21.001Z"
-  },
-  {
-   "type": "message",
-   "text": "אחרי כל ענן זורחת השמש",
-   "text_ar": "بعد كل غيمة تشرق الشمس",
-   "text_en": "After every cloud, the sun shines again",
-   "important": false,
-   "rec": "weekly",
-   "days": [
-    4
-   ],
-   "start": "",
-   "end": "",
-   "id": "6iwkdnoot",
-   "by": "Ezz Obedat",
-   "updated": "2026-10-08T13:42:52.724Z"
   },
   {
    "type": "attendance",
