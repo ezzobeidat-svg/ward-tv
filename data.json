@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:29:09.652Z",
+ "updated": "2026-10-08T13:29:37.290Z",
  "items": [
   {
    "type": "settings",
@@ -113,8 +113,10 @@
    "days": [],
    "start": "",
    "end": "",
-   "by": "ezz",
-   "updated": "2026-10-06T19:21:42.772Z"
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:29:36.771Z",
+   "title_ar": "استراحة  الظهر",
+   "title_en": "Afternoon rest"
   },
   {
    "type": "schedule",
