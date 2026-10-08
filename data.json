@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T08:32:07.993Z",
+ "updated": "2026-10-08T13:26:34.565Z",
  "items": [
   {
    "type": "settings",
@@ -23,7 +23,15 @@
    "title": "השכמה ורחצה",
    "cat": "rest",
    "rec": "daily",
-   "icon": "☀️"
+   "icon": "☀️",
+   "title_ar": "الاستيقاظ والاستحمام",
+   "title_en": "wake-up & shawer",
+   "endTime": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:26:34.138Z"
   },
   {
    "type": "schedule",
