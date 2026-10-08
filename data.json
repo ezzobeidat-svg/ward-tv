@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:40:37.068Z",
+ "updated": "2026-10-08T13:41:27.499Z",
  "items": [
   {
    "type": "settings",
@@ -268,6 +268,20 @@
    "id": "3luu9055s",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:40:36.582Z"
+  },
+  {
+   "type": "message",
+   "text": "קחו נשימה עמוקה, אתם בטוחים כאן",
+   "text_ar": "خذوا نفسًا عميقًا، أنتم في أمان هنا",
+   "text_en": "Take a deep breath, you are safe here",
+   "important": false,
+   "rec": "daily",
+   "days": [],
+   "start": "",
+   "end": "",
+   "id": "4ot8ir0wt",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:41:27.068Z"
   }
  ]
 }
