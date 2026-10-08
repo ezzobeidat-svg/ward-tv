@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:48:30.182Z",
+ "updated": "2026-10-08T13:48:43.290Z",
  "items": [
   {
    "type": "settings",
@@ -341,14 +341,14 @@
    "type": "quote",
    "text": "כל יום הוא התחלה חדשה",
    "text_ar": "كل يوم هو بداية جديدة",
-   "text_en": "",
+   "text_en": "Every day is a new beginning",
    "rec": "daily",
    "days": [],
    "start": "",
    "end": "",
    "id": "dfj4ny8ek",
    "by": "Ezz Obedat",
-   "updated": "2026-10-08T13:48:29.752Z"
+   "updated": "2026-10-08T13:48:42.872Z"
   }
  ]
 }
