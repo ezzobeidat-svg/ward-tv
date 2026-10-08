@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:39:03.855Z",
+ "updated": "2026-10-08T13:39:49.197Z",
  "items": [
   {
    "type": "settings",
@@ -236,6 +236,22 @@
    "id": "1lyfa3fbe",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:39:03.399Z"
+  },
+  {
+   "type": "message",
+   "text": "ביחד נתגבר על הקשיים",
+   "text_ar": "معًا نتجاوز الصعاب",
+   "text_en": "Together we overcome challenges",
+   "important": false,
+   "rec": "weekly",
+   "days": [
+    2
+   ],
+   "start": "",
+   "end": "",
+   "id": "2kzomek0h",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:39:48.804Z"
   }
  ]
 }
