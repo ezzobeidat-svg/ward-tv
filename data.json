@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:28:04.464Z",
+ "updated": "2026-10-08T13:28:35.548Z",
  "items": [
   {
    "type": "settings",
@@ -79,8 +79,10 @@
    "days": [],
    "start": "",
    "end": "",
-   "by": "ezz",
-   "updated": "2026-10-06T19:20:53.267Z"
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:28:35.112Z",
+   "title_ar": "وجبة الغداء",
+   "title_en": "lunch"
   },
   {
    "type": "schedule",
