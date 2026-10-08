@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:41:27.499Z",
+ "updated": "2026-10-08T13:42:21.413Z",
  "items": [
   {
    "type": "settings",
@@ -282,6 +282,20 @@
    "id": "4ot8ir0wt",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:41:27.068Z"
+  },
+  {
+   "type": "message",
+   "text": "שתו מים, ישנו טוב, ודברו עם מי שאתם סומכים עליו",
+   "text_ar": "اشربوا الماء، ناموا جيدًا، وتحدّثوا مع من تثقون به",
+   "text_en": "Drink water, sleep well, and talk to someone you trust",
+   "important": false,
+   "rec": "daily",
+   "days": [],
+   "start": "",
+   "end": "",
+   "id": "5ufdcc28t",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:42:21.001Z"
   }
  ]
 }
