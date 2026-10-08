@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:49:24.433Z",
+ "updated": "2026-10-08T13:49:38.059Z",
  "items": [
   {
    "type": "settings",
@@ -338,14 +338,14 @@
    "type": "quote",
    "text": "צעד קטן היום עושה הבדל גדול מחר",
    "text_ar": "خطوة صغيرة اليوم تصنع فرقًا كبيرًا غدًا",
-   "text_en": "",
+   "text_en": "A small step today makes a big difference tomorrow",
    "rec": "daily",
    "days": [],
    "start": "",
    "end": "",
    "id": "enq1shbx1",
    "by": "Ezz Obedat",
-   "updated": "2026-10-08T13:49:24.011Z"
+   "updated": "2026-10-08T13:49:37.658Z"
   }
  ]
 }
