@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T08:30:32.361Z",
+ "updated": "2026-10-08T08:32:07.993Z",
  "items": [
   {
    "type": "settings",
@@ -167,18 +167,6 @@
    "to": "16:00",
    "by": "ezz",
    "updated": "2026-10-06T19:23:55.959Z"
-  },
-  {
-   "type": "image",
-   "id": "0ufn0eoq1",
-   "url": "images/2026-10-08-0t3cvl185.jpg",
-   "caption": "",
-   "rec": "daily",
-   "days": [],
-   "start": "",
-   "end": "",
-   "by": "ezz",
-   "updated": "2026-10-08T08:30:31.955Z"
   }
  ]
 }
