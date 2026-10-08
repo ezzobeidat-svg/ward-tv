@@ -1,11 +1,11 @@
 {
- "updated": "2026-10-08T13:43:49.378Z",
+ "updated": "2026-10-08T13:47:50.682Z",
  "items": [
   {
    "type": "settings",
    "id": "settings",
    "wardName": "מחלקה א",
-   "phone": "02-6722250",
+   "phone": "026551560",
    "secretaryName": "זהבה אברהם",
    "headName": "סרגיי רסקיו",
    "visitMorning": "10:00-12:00",
@@ -13,8 +13,25 @@
    "sleepStart": "21:30",
    "wakeTime": "06:30",
    "nightMessage": "הגיע הזמן לנוח. הצוות ער ושומר עליכם כל הלילה.",
-   "by": "ezz",
-   "updated": "2026-10-06T19:25:21.362Z"
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:47:50.252Z",
+   "wardName_ar": "القسم  أ",
+   "wardName_en": "WARD A",
+   "headName_ar": "سيرجي راسكين",
+   "headName_en": "Sergi raskeen",
+   "secretaryName_ar": "زهافا ابراهام",
+   "secretaryName_en": "Zahava abraham",
+   "visitNote": "",
+   "visitNote_ar": "",
+   "visitNote_en": "",
+   "nightMessage_ar": "حان وقت الراحة. الطاقم مستيقظ ويسهر على رعايتكم طوال الليل.",
+   "nightMessage_en": "It’s time to rest. The staff is awake and watching over you all night.",
+   "langs": [
+    "he",
+    "ar",
+    "en"
+   ],
+   "scenes": []
   },
   {
    "type": "schedule",
