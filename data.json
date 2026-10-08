@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:38:18.081Z",
+ "updated": "2026-10-08T13:39:03.855Z",
  "items": [
   {
    "type": "settings",
@@ -220,6 +220,22 @@
    "id": "0mnhyasm5",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:38:17.645Z"
+  },
+  {
+   "type": "message",
+   "text": "צעד קטן היום עושה הבדל גדול מחר",
+   "text_ar": "خطوة صغيرة اليوم تصنع فرقًا كبيرًا غدًا",
+   "text_en": "A small step today makes a big difference tomorrow",
+   "important": false,
+   "rec": "weekly",
+   "days": [
+    1
+   ],
+   "start": "",
+   "end": "",
+   "id": "1lyfa3fbe",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:39:03.399Z"
   }
  ]
 }
