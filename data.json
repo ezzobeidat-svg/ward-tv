@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:51:42.074Z",
+ "updated": "2026-10-08T13:51:51.155Z",
  "items": [
   {
    "type": "settings",
@@ -330,6 +330,19 @@
    "id": "enq1shbx1",
    "by": "Ezz Obedat",
    "updated": "2026-10-08T13:49:37.658Z"
+  },
+  {
+   "type": "quote",
+   "text": "ביחד נתגבר על הקשיים",
+   "text_ar": "",
+   "text_en": "",
+   "rec": "daily",
+   "days": [],
+   "start": "",
+   "end": "",
+   "id": "i1y66kt02",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:51:50.622Z"
   }
  ]
 }
