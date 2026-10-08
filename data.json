@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-08T13:32:30.188Z",
+ "updated": "2026-10-08T13:33:34.125Z",
  "items": [
   {
    "type": "settings",
@@ -141,7 +141,16 @@
    "time": "20:00",
    "title": "תרופות ערב",
    "cat": "med",
-   "rec": "daily"
+   "rec": "daily",
+   "title_ar": "أدوية المساء",
+   "title_en": "evening medications",
+   "endTime": "",
+   "icon": "",
+   "days": [],
+   "start": "",
+   "end": "",
+   "by": "Ezz Obedat",
+   "updated": "2026-10-08T13:33:33.745Z"
   },
   {
    "type": "message",
